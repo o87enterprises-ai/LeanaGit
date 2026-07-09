@@ -1,0 +1,160 @@
+/* ================================================
+   LEANA FOR OAKLAND SCHOOL BOARD — BRAND SYSTEM
+   "Mama Bear Fights for Her Cubs"
+   Campaign colors extracted from official logo.
+   ================================================ */
+
+:root {
+  --brand-orange:        #C14507;
+  --brand-orange-light:  #E8630A;
+  --brand-orange-dark:   #9A3806;
+  --brand-dark:          #2E353D;
+  --brand-dark-mid:      #4A545E;
+  --brand-white:         #FFFFFF;
+  --brand-cream:         #FFF8F0;
+  --brand-cream-dark:    #F5E8D8;
+
+  /* Override generic theme tokens */
+  --primary-color:       #C14507;
+  --text-link-color:     #C14507;
+}
+
+/* ---- WARM SECTION BACKGROUNDS ---- */
+#about {
+  background: linear-gradient(160deg, var(--brand-cream) 0%, var(--brand-cream-dark) 100%) !important;
+}
+
+#achievements {
+  background: var(--brand-cream) !important;
+}
+
+/* ---- MAMA BEAR HERO BADGE ---- */
+.mama-bear-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--brand-orange);
+  color: var(--brand-white);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.4rem 1.2rem;
+  border-radius: 999px;
+  box-shadow: 0 3px 12px rgba(193, 69, 7, 0.35);
+  margin-bottom: 1.25rem;
+}
+
+.mama-bear-badge svg {
+  width: 15px;
+  height: 15px;
+  fill: white;
+  flex-shrink: 0;
+}
+
+.mama-bear-hero-row {
+  text-align: center;
+  padding: 1.25rem 0 0.25rem;
+}
+
+/* ---- PAW PRINT DIVIDERS ---- */
+.paw-divider {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 1.1rem;
+  padding: 1.75rem 0 1.25rem;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.paw-divider.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.paw-divider svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--brand-orange);
+  opacity: 0.3;
+  flex-shrink: 0;
+}
+
+/* Alternate angles to mimic a walking trail */
+.paw-divider svg:nth-child(1) { transform: rotate(-24deg) translateY(4px);  }
+.paw-divider svg:nth-child(2) { transform: rotate(14deg)  translateY(-3px); }
+.paw-divider svg:nth-child(3) { transform: rotate(-8deg)  translateY(2px);  }
+.paw-divider svg:nth-child(4) { transform: rotate(20deg)  translateY(-4px); }
+.paw-divider svg:nth-child(5) { transform: rotate(-16deg) translateY(3px);  }
+
+/* ---- WALKING BEAR ACCENT STRIP ---- */
+.bear-walk-strip {
+  position: relative;
+  height: 52px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bear-walk-strip svg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 48px;
+  fill: var(--brand-dark);
+  opacity: 0.07;
+  animation: bearWalk 24s linear infinite;
+}
+
+/* ---- LOGO IN NAVBAR ---- */
+.logo-animated {
+  animation: logoEntrance 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: 0.15s;
+}
+
+/* ---- DONATE BUTTON ENHANCEMENTS ---- */
+.donate-hero-btn {
+  box-shadow: 0 4px 18px rgba(193, 69, 7, 0.38) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease !important;
+  animation: bearStamp 3.2s ease-in-out infinite;
+}
+
+.donate-hero-btn:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 24px rgba(193, 69, 7, 0.48) !important;
+  animation-play-state: paused;
+}
+
+/* ---- SCROLL FADE-IN UTILITY ---- */
+.scroll-fade {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.scroll-fade.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- PAW CURSOR TRAIL DOT ---- */
+.paw-trail-dot {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9000;
+  width: 22px;
+  height: 22px;
+  fill: var(--brand-orange);
+  opacity: 0;
+  animation: pawTrailFade 0.95s ease forwards;
+}
+
+/* ---- CUBS CORNER ACCENT (student portal teaser) ---- */
+.cubs-accent {
+  border-left: 4px solid var(--brand-orange);
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: var(--brand-dark);
+}

@@ -1,0 +1,164 @@
+Great! The site is coming together. To match the original design at leanaforoaklandschools.com, you'll need to grab the campaign's official assets and apply its specific brand colors and fonts.
+
+Here is the exact information I pulled from the original site's source code to help you update your React app.
+
+---
+
+🎨 1. Brand Colors & Fonts
+
+Primary Brand Colors
+The original site uses these specific colors in its CSS and components:
+
+Usage Color Hex Code
+Primary / Navbar / Buttons Burnt Orange #C14507
+Secondary / Dark Elements Charcoal / Navy #2E353D
+Donate Button Hover Darker Orange #a33a05
+Text Color Dark Gray #343a40
+Background Color Light Gray #eaedf0
+
+Fonts
+The original site uses these Google Fonts:
+
+· Headings & Logo: Alata (clean, modern sans-serif)
+· Body Text: Roboto (versatile, highly readable)
+· Accent/Italic: Lora (elegant serif for quotes or special text)
+
+---
+
+🖼️ 2. Campaign Assets to Download
+
+The original site uses the following images. You should download them and place them in your React project's public/images/ folder.
+
+Asset Original URL Where it's used
+Logo https://leanaforoaklandschools.com/images/logo.png Navbar
+Headshot https://leanaforoaklandschools.com/images/headshot.JPG Hero section
+Share Image https://leanaforoaklandschools.com/images/share-image.jpg Social media preview
+Favicon https://leanaforoaklandschools.com/images/favicon.png Browser tab icon
+
+---
+
+🛠️ 3. How to Update Your React App
+
+Here’s how to integrate these into your project.
+
+Step 1: Download & Add Assets
+
+Run these commands in your project root (~/leana-campaign) to download the images directly:
+
+```bash
+# Create the images directory
+mkdir -p public/images
+
+# Download the logo, headshot, share image, and favicon
+curl -o public/images/logo.png https://leanaforoaklandschools.com/images/logo.png
+curl -o public/images/headshot.JPG https://leanaforoaklandschools.com/images/headshot.JPG
+curl -o public/images/share-image.jpg https://leanaforoaklandschools.com/images/share-image.jpg
+curl -o public/images/favicon.png https://leanaforoaklandschools.com/images/favicon.png
+```
+
+Step 2: Update index.html
+
+Link the Google Fonts and set the favicon in your index.html file:
+
+```html
+<head>
+  <!-- Favicon -->
+  <link rel="icon" href="/images/favicon.png" type="image/png" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Alata&family=Lora:ital,wght@0,400;0,700;1,400&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />
+</head>
+```
+
+Step 3: Update tailwind.config.js
+
+Replace your current Tailwind config with these brand colors and font families:
+
+```js
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  theme: {
+    extend: {
+      fontFamily: {
+        'alata': ['Alata', 'sans-serif'],
+        'roboto': ['Roboto', 'sans-serif'],
+        'lora': ['Lora', 'serif'],
+      },
+      colors: {
+        'brand-primary': '#C14507',
+        'brand-primary-dark': '#a33a05',
+        'brand-secondary': '#2E353D',
+        'brand-text': '#343a40',
+        'brand-bg': '#eaedf0',
+        // Keep your other custom colors if you like
+      },
+    },
+  },
+  plugins: [],
+}
+```
+
+Step 4: Apply the Styles to Components
+
+· Navbar: Set the background to bg-brand-primary and text to text-white.
+· Buttons: Use bg-brand-primary and hover:bg-brand-primary-dark.
+· Body: Set the background to bg-brand-bg and text to text-brand-text.
+· Headings: Use the font-alata class for a clean, modern look.
+
+---
+
+📝 Example: Updated Header Component
+
+Here’s how your Header.jsx could look with the new branding:
+
+```jsx
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+function Header({ lang, setLang }) {
+  return (
+    <header className="bg-brand-primary text-white">
+      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+        <Link to="/" className="flex items-center gap-3 font-alata text-2xl font-bold">
+          <img src="/images/logo.png" alt="LeAna for Oakland School Board" className="h-12 w-auto" />
+          <span>LeAna for Oakland School Board</span>
+        </Link>
+        <nav className="flex items-center gap-4">
+          <Link to="/" className="hover:underline">Home</Link>
+          <Link to="/about" className="hover:underline">About</Link>
+          <Link to="/issues" className="hover:underline">Issues</Link>
+          <a 
+            href="https://secure.actblue.com/donate/leana-for-oakland" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="bg-brand-secondary hover:bg-black text-white font-bold py-2 px-4 rounded transition"
+          >
+            Donate
+          </a>
+          <button 
+            onClick={() => setLang(lang === 'en' ? 'es' : 'en')} 
+            className="border border-white/30 px-3 py-1 rounded text-sm hover:bg-white/10 transition"
+          >
+            {lang === 'en' ? 'ES' : 'EN'}
+          </button>
+        </nav>
+      </div>
+    </header>
+  );
+}
+
+export default Header;
+```
+
+---
+
+✅ After These Changes
+
+· Your site will have the exact same brand colors as the original.
+· The official logo and headshot will display correctly.
+· The fonts will match the campaign's visual identity.
+
+Let me know if you need help updating any other components to match this new styling!

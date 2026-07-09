@@ -1,0 +1,64 @@
+/* ================================================
+   LEANA FOR OAKLAND SCHOOL BOARD — ANIMATIONS
+   Bear-themed motion system
+   ================================================ */
+
+/* ---- LOGO ENTRANCE ---- */
+@keyframes logoEntrance {
+  from {
+    opacity: 0;
+    transform: scale(0.72) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ---- BEAR WALK (background strip) ---- */
+@keyframes bearWalk {
+  from { transform: translateX(-240px); }
+  to   { transform: translateX(110vw);  }
+}
+
+/* ---- DONATE BUTTON HEARTBEAT ---- */
+@keyframes bearStamp {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.045); }
+}
+
+/* ---- PAW CURSOR TRAIL ---- */
+@keyframes pawTrailFade {
+  0%   { opacity: 0.55; transform: scale(0.5)  rotate(var(--paw-rot, 0deg)); }
+  35%  { opacity: 0.3;  transform: scale(1)    rotate(var(--paw-rot, 0deg)); }
+  100% { opacity: 0;    transform: scale(0.85) rotate(var(--paw-rot, 0deg)) translateY(6px); }
+}
+
+/* ---- SECTION REVEAL ---- */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ---- BADGE POP-IN ---- */
+@keyframes badgePopIn {
+  0%   { opacity: 0; transform: scale(0.6); }
+  70%  { transform: scale(1.1); }
+  100% { opacity: 1; transform: scale(1);   }
+}
+
+.mama-bear-badge {
+  animation: badgePopIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: 0.4s;
+}
+
+/* ---- RESPECT REDUCED MOTION ---- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration:        0.001ms !important;
+    animation-iteration-count: 1       !important;
+    transition-duration:       0.001ms !important;
+  }
+}
