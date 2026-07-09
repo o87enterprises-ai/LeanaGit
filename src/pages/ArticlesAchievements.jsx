@@ -15,11 +15,11 @@ const articlesData = [
   }
 ];
 
-export default function Achievements() {
+export default function ArticlesAchievements() {
   return (
     <div className="min-h-[80vh] py-20 px-6 max-w-4xl mx-auto bg-warm-ivory">
       <h1 className="font-playfair text-4xl sm:text-6xl font-bold text-rooted-black mb-10 text-center">
-        Achievements & Articles
+        Articles & Achievements
       </h1>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

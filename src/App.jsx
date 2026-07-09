@@ -1,5 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Layout from './layouts/Layout';
+import { LanguageProvider } from './context/LanguageContext';
+
 import Home from './pages/Home';
 import Page from './pages/Page';
 import About from './pages/About';
@@ -10,9 +12,10 @@ import BearNecessities from './pages/BearNecessities';
 import Resources from './pages/Resources';
 import TheDenLive from './pages/TheDenLive';
 import CubHouse from './pages/CubHouse';
-import Achievements from './pages/Achievements'; // <-- Added new page
+import ArticlesAchievements from './pages/ArticlesAchievements'; // <-- Renamed import
+import Events from './pages/Events'; // <-- New Import
 
-function App() {
+function AppContent() {
   return (
     <Routes>
       <Route path="/" element={<Layout><Home /></Layout>} />
@@ -24,9 +27,18 @@ function App() {
       <Route path="/resources" element={<Layout><Resources /></Layout>} />
       <Route path="/the-den-live" element={<Layout><TheDenLive /></Layout>} />
       <Route path="/cub-house" element={<Layout><CubHouse /></Layout>} />
-      <Route path="/achievements" element={<Layout><Achievements /></Layout>} /> {/* <-- New Route */}
+      <Route path="/achievements" element={<Layout><ArticlesAchievements /></Layout>} /> 
+      <Route path="/events" element={<Layout><Events /></Layout>} /> {/* <-- New Route */}
       <Route path="/:slug" element={<Layout><Page /></Layout>} />
     </Routes>
+  );
+}
+
+function App() {
+  return (
+    <LanguageProvider>
+      <AppContent />
+    </LanguageProvider>
   );
 }
 
