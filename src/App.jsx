@@ -6,11 +6,11 @@ import About from './pages/About';
 import Issues from './pages/Issues';
 import Endorsements from './pages/Endorsements';
 import Volunteer from './pages/Volunteer';
-// New Pages
 import BearNecessities from './pages/BearNecessities';
 import Resources from './pages/Resources';
 import TheDenLive from './pages/TheDenLive';
 import CubHouse from './pages/CubHouse';
+import Achievements from './pages/Achievements'; // <-- Added new page
 
 function App() {
   return (
@@ -20,11 +20,11 @@ function App() {
       <Route path="/issues" element={<Layout><Issues /></Layout>} />
       <Route path="/endorsements" element={<Layout><Endorsements /></Layout>} />
       <Route path="/volunteer" element={<Layout><Volunteer /></Layout>} />
-      {/* New links */}
       <Route path="/bear-necessities" element={<Layout><BearNecessities /></Layout>} />
       <Route path="/resources" element={<Layout><Resources /></Layout>} />
       <Route path="/the-den-live" element={<Layout><TheDenLive /></Layout>} />
       <Route path="/cub-house" element={<Layout><CubHouse /></Layout>} />
+      <Route path="/achievements" element={<Layout><Achievements /></Layout>} /> {/* <-- New Route */}
       <Route path="/:slug" element={<Layout><Page /></Layout>} />
     </Routes>
   );
