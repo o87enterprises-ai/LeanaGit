@@ -1,0 +1,14 @@
+{
+  // Cloudflare Worker config for the campaign site.
+  // The site is a static Vite build with client-side routing, so this Worker
+  // has no server code — it just serves ./dist, and any unknown path falls
+  // back to index.html so /events, /issues, /endorsements, etc. work on a
+  // hard refresh or a shared link instead of 404ing.
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "leanagit",
+  "compatibility_date": "2026-08-14",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  }
+}
