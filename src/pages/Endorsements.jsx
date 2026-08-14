@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 import { endorsements, SIGNUP_FORM_URL } from '../data/endorsements';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Endorsements() {
+  const { t } = useLanguage();
+
   return (
     <div className="min-h-screen py-20 px-6 bg-warm-ivory relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none z-0 opacity-20">
@@ -11,11 +14,13 @@ export default function Endorsements() {
 
       <div className="relative z-10 max-w-4xl mx-auto">
         <h1 className="font-playfair text-4xl sm:text-6xl font-bold text-rooted-black mb-3 text-center">
-          Endorsements
+          {t('Endorsements', 'Apoyos')}
         </h1>
         <p className="text-center text-rooted-black/60 mb-12 max-w-2xl mx-auto">
-          Educators, parents, principals, and elected leaders across Oakland are backing this
-          mama bear. Here is who is standing with us.
+          {t(
+            'Educators, parents, principals, and elected leaders across Oakland are backing this mama bear. Here is who is standing with us.',
+            'Educadores, padres de familia, directores de escuela y líderes electos de todo Oakland respaldan a esta mamá osa. Ellos son quienes nos acompañan.'
+          )}
         </p>
 
         <div className="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
@@ -35,16 +40,21 @@ export default function Endorsements() {
         </div>
 
         <p className="text-xs text-rooted-black/50 mt-4 text-center italic">
-          * Organizational affiliations listed for identification purposes only
+          {t(
+            '* Organizational affiliations listed for identification purposes only',
+            '* Las afiliaciones organizacionales se indican únicamente con fines de identificación'
+          )}
         </p>
 
         <div className="mt-12 text-center bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
           <h2 className="font-playfair text-2xl font-bold text-rooted-black mb-2">
-            Add your name to the list
+            {t('Add your name to the list', 'Agregue su nombre a la lista')}
           </h2>
           <p className="text-rooted-black/70 mb-6 max-w-xl mx-auto">
-            Every name helps. Endorse LeAna and let us know if you would like to volunteer,
-            host an event, or put up a lawn sign.
+            {t(
+              'Every name helps. Endorse LeAna and let us know if you would like to volunteer, host an event, or put up a lawn sign.',
+              'Cada nombre cuenta. Apoye a LeAna y díganos si le gustaría ser voluntario, organizar un evento o poner un letrero en su jardín.'
+            )}
           </p>
           <a
             href={SIGNUP_FORM_URL}
@@ -52,13 +62,16 @@ export default function Endorsements() {
             rel="noopener noreferrer"
             className="inline-block bg-oakland-terracotta text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-sierra-sage transition-colors shadow-md"
           >
-            Add your name here! &rarr;
+            {t('Add your name here!', '¡Agregue su nombre aquí!')} &rarr;
           </a>
+          <p className="text-xs text-rooted-black/40 mt-3">
+            {t('', 'El formulario está en inglés.')}
+          </p>
         </div>
 
         <div className="mt-10 text-center">
           <Link to="/" className="text-oakland-terracotta font-bold underline hover:text-sierra-sage transition-colors">
-            Return Home
+            {t('Return Home', 'Volver al Inicio')}
           </Link>
         </div>
       </div>

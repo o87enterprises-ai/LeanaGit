@@ -1,2 +1,12 @@
-import { Link } from 'react-router-dom';
-export default function CubHouse() { return <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-6 py-20 bg-warm-ivory"><h1 className="font-playfair text-4xl sm:text-6xl font-bold text-rooted-black mb-4">Cub House</h1><p className="text-xl text-rooted-black/60 mb-8 max-w-2xl">This page is currently under construction. Check back soon for family events!</p><Link to="/" className="text-oakland-terracotta font-bold underline hover:text-sierra-sage transition-colors">Return Home</Link></div>; }
+import ComingSoon from '../components/ui/ComingSoon';
+
+export default function CubHouse() {
+  return (
+    <ComingSoon
+      titleEn="Cub House"
+      titleEs="Casa del Cachorro"
+      blurbEn="This page is currently under construction. Check back soon for family events!"
+      blurbEs="Esta página está en construcción. ¡Vuelva pronto para ver eventos familiares!"
+    />
+  );
+}

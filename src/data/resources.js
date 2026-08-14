@@ -11,6 +11,14 @@ export const GROUPS = {
   advocacy: "LeAna's History of Advocacy",
 };
 
+// Section headings translate; the articles themselves stay in English because
+// they link out to English-language coverage.
+export const GROUPS_ES = {
+  news: 'En las Noticias',
+  documents: 'Documentos e Informes',
+  advocacy: 'La Trayectoria de LeAna',
+};
+
 // The two letters the campaign is leading with.
 export const featured = [
   {

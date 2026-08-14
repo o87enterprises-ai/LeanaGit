@@ -15,6 +15,11 @@
 //   rsvpLabel   button text (defaults to 'RSVP')
 //   description one or two sentences shown on the card
 //
+// Spanish: add titleEs / hostEs / timeEs / locationEs / descriptionEs and the
+// site uses them when a visitor switches to Spanish. Leave any of them off and
+// that line simply stays in English, so a new event is never broken — it is
+// just untranslated until someone fills the Spanish in.
+//
 // Events sort themselves by date, so you can add them in any order.
 // ============================================================================
 
@@ -22,34 +27,70 @@ export const events = [
   {
     date: '2026-08-29',
     title: 'Community Gathering',
+    titleEs: 'Reunión Comunitaria',
     host: 'Hosted by Silvia Guzmán',
+    hostEs: 'Organizado por Silvia Guzmán',
     time: '1:00 – 3:00 PM',
+    timeEs: '1:00 – 3:00 p. m.',
     location: 'Concordia Park',
+    locationEs: 'Parque Concordia',
     address: '2901 64th Ave, Oakland, CA 94605',
     description:
       'Come meet LeAna, bring the cubs, and talk with neighbors about what District 6 schools need.',
+    descriptionEs:
+      'Venga a conocer a LeAna, traiga a los cachorros y converse con sus vecinos sobre lo que necesitan las escuelas del Distrito 6.',
   },
   {
     date: '2026-08-30',
     title: 'House Party',
+    titleEs: 'Fiesta en Casa',
     host: 'Hosted by Katie and Cody Rhodes',
+    hostEs: 'Organizada por Katie y Cody Rhodes',
     time: '3:00 – 5:00 PM',
+    timeEs: '3:00 – 5:00 p. m.',
     description:
       'An afternoon with fellow Burckhalter families and friends of the campaign. RSVP for the address.',
+    descriptionEs:
+      'Una tarde con familias de Burckhalter y amistades de la campaña. Confirme su asistencia para recibir la dirección.',
     rsvpUrl: 'https://secure.actblue.com/donate/leana-katie',
   },
   {
     date: '2026-09-02',
     title: 'Fundraiser with Chef Nigel',
+    titleEs: 'Recaudación de Fondos con el Chef Nigel',
     host: 'Hosted by Chef Nigel',
+    hostEs: 'Organizada por el Chef Nigel',
     time: '5:00 – 6:30 PM',
+    timeEs: '5:00 – 6:30 p. m.',
     location: 'Calabash',
     address: 'Uptown Oakland',
+    addressEs: 'Uptown, Oakland',
     description:
       'Good food and good company in Uptown to fuel the final stretch of the campaign.',
+    descriptionEs:
+      'Buena comida y buena compañía en Uptown para impulsar la recta final de la campaña.',
     rsvpUrl: 'https://secure.actblue.com/donate/leana-calabash',
   },
 ];
+
+/** Resolve an event's text for the active language, falling back to English. */
+export function localizeEvent(event, language) {
+  if (language !== 'es') return event;
+  return {
+    ...event,
+    title: event.titleEs || event.title,
+    host: event.hostEs || event.host,
+    time: event.timeEs || event.time,
+    location: event.locationEs || event.location,
+    address: event.addressEs || event.address,
+    description: event.descriptionEs || event.description,
+    rsvpLabel: event.rsvpLabelEs || event.rsvpLabel,
+    // Keep the English venue for the map link — Google finds "Concordia Park",
+    // not "Parque Concordia".
+    mapLocation: event.location,
+    mapAddress: event.address,
+  };
+}
 
 // --- helpers ---------------------------------------------------------------
 
@@ -94,8 +135,12 @@ export function defaultCalendarMonth(today = new Date()) {
   return new Date(anchor.getFullYear(), anchor.getMonth(), 1);
 }
 
-export function formatEventDate(dateStr, options) {
-  return parseDateStr(dateStr).toLocaleDateString('en-US', {
+export function localeFor(language) {
+  return language === 'es' ? 'es-US' : 'en-US';
+}
+
+export function formatEventDate(dateStr, options, language) {
+  return parseDateStr(dateStr).toLocaleDateString(localeFor(language), {
     weekday: 'long',
     month: 'long',
     day: 'numeric',
@@ -103,7 +148,28 @@ export function formatEventDate(dateStr, options) {
   });
 }
 
+/** Month names for the calendar header, in the active language. */
+export function monthNames(language) {
+  const formatter = new Intl.DateTimeFormat(localeFor(language), { month: 'long' });
+  return Array.from({ length: 12 }, (_, i) => {
+    const name = formatter.format(new Date(2026, i, 1));
+    return name.charAt(0).toUpperCase() + name.slice(1); // Spanish months are lowercase
+  });
+}
+
+/** Weekday initials for the calendar header, in the active language. */
+export function weekdayNames(language) {
+  const formatter = new Intl.DateTimeFormat(localeFor(language), { weekday: 'short' });
+  // 2026-08-02 is a Sunday, so this walks Sun -> Sat.
+  return Array.from({ length: 7 }, (_, i) => {
+    const name = formatter.format(new Date(2026, 7, 2 + i)).replace('.', '');
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  });
+}
+
 export function mapUrl(event) {
-  const query = [event.location, event.address].filter(Boolean).join(', ');
+  const query = [event.mapLocation ?? event.location, event.mapAddress ?? event.address]
+    .filter(Boolean)
+    .join(', ');
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 }

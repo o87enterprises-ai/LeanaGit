@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { GROUPS, featured, resourcesByGroup } from '../data/resources';
+import { GROUPS, GROUPS_ES, featured, resourcesByGroup } from '../data/resources';
+import { useLanguage } from '../context/LanguageContext';
 
 /** Thumbnail that quietly disappears if the source image ever goes away. */
 function Thumb({ src, alt, className }) {
@@ -19,6 +20,8 @@ function Thumb({ src, alt, className }) {
 }
 
 function ResourceRow({ item }) {
+  const { t } = useLanguage();
+
   return (
     <li className="flex gap-4 p-4 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
       <div className="w-24 h-20 sm:w-32 sm:h-24 flex-shrink-0 rounded-lg overflow-hidden bg-warm-ivory">
@@ -36,11 +39,11 @@ function ResourceRow({ item }) {
             rel="noopener noreferrer"
             className="inline-block mt-2 text-oakland-terracotta font-bold text-sm hover:text-sierra-sage transition-colors"
           >
-            Read it &rarr;
+            {t('Read it', 'Léalo')} &rarr;
           </a>
         ) : (
           <span className="inline-block mt-2 text-xs uppercase tracking-wide text-rooted-black/40">
-            Link coming soon
+            {t('Link coming soon', 'Enlace próximamente')}
           </span>
         )}
       </div>
@@ -49,15 +52,23 @@ function ResourceRow({ item }) {
 }
 
 export default function ArticlesAchievements() {
+  const { language, t } = useLanguage();
+  const groups = language === 'es' ? GROUPS_ES : GROUPS;
+
   return (
     <div className="min-h-screen bg-warm-ivory py-20 px-6">
       <div className="max-w-5xl mx-auto">
         <h1 className="font-playfair text-4xl sm:text-6xl font-bold text-rooted-black mb-3 text-center">
-          Articles & Achievements
+          {t('Articles & Achievements', 'Artículos y Logros')}
         </h1>
-        <p className="text-center text-rooted-black/60 mb-14 max-w-2xl mx-auto">
-          Coverage of what is happening inside OUSD, the letters and reports behind the headlines,
-          and a look at LeAna’s years of advocacy for Oakland families.
+        <p className="text-center text-rooted-black/60 mb-3 max-w-2xl mx-auto">
+          {t(
+            'Coverage of what is happening inside OUSD, the letters and reports behind the headlines, and a look at LeAna’s years of advocacy for Oakland families.',
+            'Cobertura de lo que ocurre dentro de OUSD, las cartas e informes detrás de los titulares y un vistazo a los años de trabajo de LeAna por las familias de Oakland.'
+          )}
+        </p>
+        <p className="text-center text-rooted-black/40 text-sm mb-14">
+          {t('', 'Los artículos enlazados están en inglés.')}
         </p>
 
         {/* Featured letters */}
@@ -79,7 +90,7 @@ export default function ArticlesAchievements() {
                   rel="noopener noreferrer"
                   className="inline-block bg-oakland-terracotta text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-sierra-sage transition-colors w-fit"
                 >
-                  Read Full Article &rarr;
+                  {t('Read Full Article', 'Leer el documento')} &rarr;
                 </a>
               </div>
             </div>
@@ -89,14 +100,17 @@ export default function ArticlesAchievements() {
         {/* Resources (folded in from the old Resources tab) */}
         <section id="resources" className="mt-20 scroll-mt-24">
           <h2 className="font-playfair text-3xl sm:text-4xl font-bold text-rooted-black mb-2">
-            Resources
+            {t('Resources', 'Recursos')}
           </h2>
           <p className="text-rooted-black/60 mb-10 max-w-2xl">
-            Want to dig into the district yourself? Start here.
+            {t(
+              'Want to dig into the district yourself? Start here.',
+              '¿Quiere investigar el distrito por su cuenta? Empiece aquí.'
+            )}
           </p>
 
           <div className="space-y-12">
-            {Object.entries(GROUPS).map(([key, label]) => (
+            {Object.entries(groups).map(([key, label]) => (
               <div key={key}>
                 <h3 className="font-playfair text-xl font-bold text-oakland-terracotta mb-4 uppercase tracking-wide">
                   {label}
@@ -113,30 +127,36 @@ export default function ArticlesAchievements() {
 
         <div className="mt-16 text-center bg-deep-navy text-white rounded-2xl p-10">
           <h2 className="font-playfair text-2xl sm:text-3xl font-bold mb-3">
-            Oakland’s kids need a mama bear in the room
+            {t(
+              'Oakland’s kids need a mama bear in the room',
+              'Los niños de Oakland necesitan una mamá osa en la sala'
+            )}
           </h2>
           <p className="text-white/70 mb-6 max-w-xl mx-auto">
-            Read the coverage, then help us change it. #MamaBearForOUSD
+            {t(
+              'Read the coverage, then help us change it. #MamaBearForOUSD',
+              'Lea la cobertura y ayúdenos a cambiarla. #MamaBearForOUSD'
+            )}
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link
               to="/volunteer"
               className="bg-oakland-terracotta text-white px-6 py-3 rounded-full font-bold hover:bg-california-gold transition-colors"
             >
-              Get involved &rarr;
+              {t('Get involved', 'Participe')} &rarr;
             </Link>
             <Link
               to="/issues"
               className="bg-white text-rooted-black px-6 py-3 rounded-full font-bold hover:bg-california-gold hover:text-white transition-colors"
             >
-              Where LeAna stands
+              {t('Where LeAna stands', 'La postura de LeAna')}
             </Link>
           </div>
         </div>
 
         <div className="mt-10 text-center">
           <Link to="/" className="text-oakland-terracotta font-bold underline hover:text-sierra-sage transition-colors">
-            Return Home
+            {t('Return Home', 'Volver al Inicio')}
           </Link>
         </div>
       </div>
