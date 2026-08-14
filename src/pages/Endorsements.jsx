@@ -1,7 +1,32 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { endorsements } from '../data/endorsements';
 import { signupFormUrl } from '../data/forms';
 import { useLanguage } from '../context/LanguageContext';
+
+// Supporters photo at the top of the page. Drop the file in at this path and it
+// appears; if it isn't there, the block hides itself rather than leaving a gap.
+const GROUP_PHOTO = '/images/endorsements-group.jpg';
+
+function GroupPhoto() {
+  const { t } = useLanguage();
+  const [missing, setMissing] = useState(false);
+  if (missing) return null;
+
+  return (
+    <figure className="mb-12 rounded-2xl overflow-hidden shadow-lg border-4 border-california-gold/60">
+      <img
+        src={GROUP_PHOTO}
+        alt={t(
+          'LeAna Powell supporters gathered together holding campaign signs',
+          'Simpatizantes de LeAna Powell reunidos sosteniendo carteles de la campaña'
+        )}
+        onError={() => setMissing(true)}
+        className="w-full h-auto object-cover"
+      />
+    </figure>
+  );
+}
 
 export default function Endorsements() {
   const { language, t } = useLanguage();
@@ -17,12 +42,14 @@ export default function Endorsements() {
         <h1 className="font-playfair text-4xl sm:text-6xl font-bold text-rooted-black mb-3 text-center">
           {t('Endorsements', 'Apoyos')}
         </h1>
-        <p className="text-center text-rooted-black/60 mb-12 max-w-2xl mx-auto">
+        <p className="text-center text-rooted-black/60 mb-8 max-w-2xl mx-auto">
           {t(
             'Educators, parents, principals, and elected leaders across Oakland are backing this mama bear. Here is who is standing with us.',
             'Educadores, padres de familia, directores de escuela y líderes electos de todo Oakland respaldan a esta mamá osa. Ellos son quienes nos acompañan.'
           )}
         </p>
+
+        <GroupPhoto />
 
         <div className="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
           <ul className="divide-y divide-gray-100">

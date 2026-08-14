@@ -9,7 +9,7 @@ const exploreCards = [
   { to: '/endorsements', emoji: '🤝', titleEn: 'Endorsements', titleEs: 'Apoyos', noteEn: '35+ community leaders', noteEs: 'Más de 35 líderes comunitarios' },
   { to: '/bear-necessities', emoji: '🐻', titleEn: 'Bear Necessities', titleEs: 'Necesidades del Oso', noteEn: 'Coming Soon', noteEs: 'Próximamente' },
   { to: '/the-den-live', emoji: '🎙️', titleEn: 'The Den Live!', titleEs: '¡La Guarida en Vivo!', noteEn: 'Coming Soon', noteEs: 'Próximamente' },
-  { to: '/cub-house', emoji: '🏠', titleEn: 'Cub House', titleEs: 'Casa del Cachorro', noteEn: 'Coming Soon', noteEs: 'Próximamente' },
+  { to: '/events', emoji: '📅', titleEn: 'Events', titleEs: 'Eventos', noteEn: 'Come meet LeAna', noteEs: 'Venga a conocer a LeAna' },
 ];
 
 export default function Home() {

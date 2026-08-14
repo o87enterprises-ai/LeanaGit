@@ -21,7 +21,33 @@
 // just untranslated until someone fills the Spanish in.
 //
 // Events sort themselves by date, so you can add them in any order.
+//
+// For something that repeats weekly, use weekly({ from, to, ...event }) instead
+// of copying the block once per week — see the Saturday voter outreach below.
 // ============================================================================
+
+/** Expand a weekly series into one event per week, both ends included. */
+function weekly({ from, to, ...fields }) {
+  const series = [];
+  for (const day = parseDateStr(from); toDateStr(day) <= to; day.setDate(day.getDate() + 7)) {
+    series.push({ ...fields, date: toDateStr(day) });
+  }
+  return series;
+}
+
+const voterOutreach = {
+  title: 'Outreach to Voters',
+  titleEs: 'Contacto con los Votantes',
+  time: '9:30 AM – 12:00 PM',
+  timeEs: '9:30 a. m. – 12:00 p. m.',
+  location: 'Meet in front of Burckhalter Elementary',
+  locationEs: 'Nos reunimos frente a la Escuela Primaria Burckhalter',
+  address: '3994 Burckhalter Ave, Oakland, CA 94605',
+  description:
+    'Join the team every Saturday to talk with District 6 neighbors about our schools. No experience needed — we will pair you up and show you the ropes.',
+  descriptionEs:
+    'Acompáñenos todos los sábados para conversar con los vecinos del Distrito 6 sobre nuestras escuelas. No necesita experiencia: lo emparejamos con alguien del equipo y le explicamos todo.',
+};
 
 export const events = [
   {
@@ -70,6 +96,21 @@ export const events = [
     descriptionEs:
       'Buena comida y buena compañía en Uptown para impulsar la recta final de la campaña.',
     rsvpUrl: 'https://secure.actblue.com/donate/leana-calabash',
+  },
+
+  // Every Saturday, Sept 12 through Oct 24.
+  ...weekly({ from: '2026-09-12', to: '2026-10-24', ...voterOutreach }),
+
+  // Same walk, Halloween weekend.
+  {
+    ...voterOutreach,
+    date: '2026-10-31',
+    title: 'Outreach to Voters: Halloween Edition',
+    titleEs: 'Contacto con los Votantes: Edición de Halloween',
+    description:
+      'Our last Saturday walk before the election, in costume if you like — costumes optional, candy encouraged.',
+    descriptionEs:
+      'Nuestra última caminata del sábado antes de las elecciones, con disfraz si gusta: los disfraces son opcionales y los dulces bienvenidos.',
   },
 ];
 
