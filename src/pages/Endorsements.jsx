@@ -4,24 +4,30 @@ import { endorsements } from '../data/endorsements';
 import { signupFormUrl } from '../data/forms';
 import { useLanguage } from '../context/LanguageContext';
 
-// Supporters photo at the top of the page. Drop the file in at this path and it
-// appears; if it isn't there, the block hides itself rather than leaving a gap.
-const GROUP_PHOTO = '/images/endorsements-group.jpg';
+// Supporters photo at the top of the page. Upload it to public/images/ named
+// endorsements-group and it appears — .jpg, .jpeg or .png all work, so the
+// exact extension your phone or camera produced doesn't matter. Until the file
+// exists the block hides itself rather than leaving a gap on the page.
+const GROUP_PHOTO_CANDIDATES = [
+  '/images/endorsements-group.jpg',
+  '/images/endorsements-group.jpeg',
+  '/images/endorsements-group.png',
+];
 
 function GroupPhoto() {
   const { t } = useLanguage();
-  const [missing, setMissing] = useState(false);
-  if (missing) return null;
+  const [attempt, setAttempt] = useState(0);
+  if (attempt >= GROUP_PHOTO_CANDIDATES.length) return null;
 
   return (
     <figure className="mb-12 rounded-2xl overflow-hidden shadow-lg border-4 border-california-gold/60">
       <img
-        src={GROUP_PHOTO}
+        src={GROUP_PHOTO_CANDIDATES[attempt]}
         alt={t(
           'LeAna Powell supporters gathered together holding campaign signs',
           'Simpatizantes de LeAna Powell reunidos sosteniendo carteles de la campaña'
         )}
-        onError={() => setMissing(true)}
+        onError={() => setAttempt((n) => n + 1)}
         className="w-full h-auto object-cover"
       />
     </figure>
