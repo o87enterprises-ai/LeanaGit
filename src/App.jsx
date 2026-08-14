@@ -9,7 +9,6 @@ import Endorsements from './pages/Endorsements';
 import Volunteer from './pages/Volunteer';
 import BearNecessities from './pages/BearNecessities';
 import TheDenLive from './pages/TheDenLive';
-import CubHouse from './pages/CubHouse';
 import ArticlesAchievements from './pages/ArticlesAchievements';
 import Events from './pages/Events';
 
@@ -26,7 +25,8 @@ function AppContent() {
       {/* Resources are now part of Articles & Achievements */}
       <Route path="/resources" element={<Navigate to="/achievements#resources" replace />} />
       <Route path="/the-den-live" element={<Layout><TheDenLive /></Layout>} />
-      <Route path="/cub-house" element={<Layout><CubHouse /></Layout>} />
+      {/* Cub House is down for now; send any old links home rather than 404 */}
+      <Route path="/cub-house" element={<Navigate to="/" replace />} />
       <Route path="/achievements" element={<Layout><ArticlesAchievements /></Layout>} />
       <Route path="/events" element={<Layout><Events /></Layout>} />
       <Route path="/:slug" element={<Layout><Page /></Layout>} />

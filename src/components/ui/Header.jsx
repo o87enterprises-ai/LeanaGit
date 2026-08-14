@@ -30,7 +30,8 @@ export const navLinks = [
   },
   { nameEn: 'Bear Necessities', nameEs: 'Necesidades del Oso', to: '/bear-necessities' },
   { nameEn: 'The Den Live!', nameEs: '¡La Guarida en Vivo!', to: '/the-den-live' },
-  { nameEn: 'Cub House', nameEs: 'Casa del Cachorro', to: '/cub-house' },
+  // Cub House is off the site for now — the name didn't read clearly in either
+  // language. src/pages/CubHouse.jsx is still here for whenever it comes back.
 ];
 
 const primaryNav = navLinks.filter((link) => link.primary);
