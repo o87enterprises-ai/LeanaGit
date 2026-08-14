@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom';
-import { SIGNUP_FORM_URL } from '../data/endorsements';
+import { signupFormUrl } from '../data/forms';
 import { useLanguage } from '../context/LanguageContext';
-
-const EMBED_URL = `${SIGNUP_FORM_URL}?embedded=true`;
 
 const waysToHelp = [
   {
@@ -44,7 +42,9 @@ const waysToHelp = [
 ];
 
 export default function Volunteer() {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
+  const formUrl = signupFormUrl(language);
+  const embedUrl = signupFormUrl(language, { embedded: true });
 
   return (
     <div className="min-h-screen py-20 px-6 bg-warm-ivory relative overflow-hidden">
@@ -84,7 +84,7 @@ export default function Volunteer() {
             <p className="text-rooted-black/70 text-sm">
               {t('Having trouble with the form below? ', '¿Tiene problemas con el formulario? ')}
               <a
-                href={SIGNUP_FORM_URL}
+                href={formUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-oakland-terracotta font-bold underline hover:text-sierra-sage transition-colors"
@@ -93,13 +93,10 @@ export default function Volunteer() {
               </a>
               .
             </p>
-            <p className="text-rooted-black/50 text-xs mt-2">
-              {t('', 'El formulario de la campaña está disponible únicamente en inglés.')}
-            </p>
           </div>
 
           <iframe
-            src={EMBED_URL}
+            src={embedUrl}
             title={t('Volunteer and endorsement sign-up form', 'Formulario para voluntarios y apoyos')}
             className="w-full h-[1100px] sm:h-[1200px] border-0"
             loading="lazy"

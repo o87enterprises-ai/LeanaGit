@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
-import { endorsements, SIGNUP_FORM_URL } from '../data/endorsements';
+import { endorsements } from '../data/endorsements';
+import { signupFormUrl } from '../data/forms';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function Endorsements() {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
 
   return (
     <div className="min-h-screen py-20 px-6 bg-warm-ivory relative overflow-hidden">
@@ -57,16 +58,13 @@ export default function Endorsements() {
             )}
           </p>
           <a
-            href={SIGNUP_FORM_URL}
+            href={signupFormUrl(language)}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-oakland-terracotta text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-sierra-sage transition-colors shadow-md"
           >
             {t('Add your name here!', '¡Agregue su nombre aquí!')} &rarr;
           </a>
-          <p className="text-xs text-rooted-black/40 mt-3">
-            {t('', 'El formulario está en inglés.')}
-          </p>
         </div>
 
         <div className="mt-10 text-center">

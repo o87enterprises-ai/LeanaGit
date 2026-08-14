@@ -38,7 +38,3 @@ export const endorsements = [
   { name: 'Genice Jacobs', title: 'Anti-Trafficking Consultant and California Democratic Party* Delegate' },
   { name: 'Dr. Delores Thompson', title: 'Radio/Television Personality; Oakland School of the Arts* educator' },
 ];
-
-/** The campaign's endorsement / volunteer sign-up form. */
-export const SIGNUP_FORM_URL =
-  'https://docs.google.com/forms/d/e/1FAIpQLScoq6dBd9UHVqT4tjFUn3uIFEdhA2uvzQv-2D5jLoJRCVGS3A/viewform';
