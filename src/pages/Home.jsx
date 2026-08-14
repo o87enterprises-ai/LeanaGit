@@ -1,16 +1,24 @@
 import { Link } from 'react-router-dom';
 import HeroVideo from '../components/ui/HeroVideo';
-import { upcomingEvents, formatEventDate, mapUrl } from '../data/events';
+import Markdown from '../components/ui/Markdown';
+import { useLanguage } from '../context/LanguageContext';
+import { useDocs } from '../lib/content';
+import { upcomingEvents, formatEventDate, localizeEvent, mapUrl } from '../data/events';
 
 const exploreCards = [
-  { to: '/endorsements', emoji: '🤝', title: 'Endorsements', note: '35+ community leaders' },
-  { to: '/bear-necessities', emoji: '🐻', title: 'Bear Necessities', note: 'Coming Soon' },
-  { to: '/the-den-live', emoji: '🎙️', title: 'The Den Live!', note: 'Coming Soon' },
-  { to: '/cub-house', emoji: '🏠', title: 'Cub House', note: 'Coming Soon' },
+  { to: '/endorsements', emoji: '🤝', titleEn: 'Endorsements', titleEs: 'Apoyos', noteEn: '35+ community leaders', noteEs: 'Más de 35 líderes comunitarios' },
+  { to: '/bear-necessities', emoji: '🐻', titleEn: 'Bear Necessities', titleEs: 'Necesidades del Oso', noteEn: 'Coming Soon', noteEs: 'Próximamente' },
+  { to: '/the-den-live', emoji: '🎙️', titleEn: 'The Den Live!', titleEs: '¡La Guarida en Vivo!', noteEn: 'Coming Soon', noteEs: 'Próximamente' },
+  { to: '/cub-house', emoji: '🏠', titleEn: 'Cub House', titleEs: 'Casa del Cachorro', noteEn: 'Coming Soon', noteEs: 'Próximamente' },
 ];
 
 export default function Home() {
+  const { language, t } = useLanguage();
   const nextEvents = upcomingEvents().slice(0, 3);
+  // About copy lives in public/content/about.md (+ about.es.md), so the campaign
+  // can edit it — and its Spanish translation — without touching code.
+  const { docs } = useDocs(['/content/about'], language);
+  const about = docs[0];
 
   return (
     <div className="min-h-screen bg-warm-ivory">
@@ -22,16 +30,16 @@ export default function Home() {
         <div className="relative z-10 max-w-2xl w-full mx-auto p-6">
           <img src="/images/logo.png" alt="LeAna Powell Logo" className="w-24 h-auto mx-auto mb-4 drop-shadow-lg" />
           <p className="text-white font-bold tracking-wider text-xs sm:text-sm uppercase mb-2 text-shadow-hero">
-            Oakland School Board District 6
+            {t('Oakland School Board District 6', 'Junta Escolar de Oakland, Distrito 6')}
           </p>
           <h1 className="font-playfair text-5xl sm:text-7xl font-bold text-white mb-4 text-shadow-hero">
             LeAna Powell
           </h1>
           <p className="font-playfair text-2xl sm:text-4xl text-california-gold font-bold text-shadow-hero">
-            Mama Bear for Oakland Schools
+            {t('Mama Bear for Oakland Schools', 'Mamá Osa por las Escuelas de Oakland')}
           </p>
           <p className="mt-3 text-white/90 text-base sm:text-lg font-light text-shadow-hero">
-            Rooted in Oakland. Fighting for Kids.
+            {t('Rooted in Oakland. Fighting for Kids.', 'Con raíces en Oakland. Luchando por los niños.')}
           </p>
           <p className="mt-4 inline-block bg-oakland-terracotta/90 text-white px-4 py-1.5 rounded-full text-sm sm:text-base font-bold tracking-wide">
             #MamaBearForOUSD
@@ -45,13 +53,13 @@ export default function Home() {
             rel="noopener noreferrer"
             className="inline-block bg-oakland-terracotta text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-sierra-sage transition-colors shadow-lg"
           >
-            Fuel the Movement &rarr;
+            {t('Fuel the Movement', 'Impulse el Movimiento')} &rarr;
           </a>
           <Link
             to="/events"
             className="inline-block bg-white/95 text-rooted-black px-8 py-4 rounded-full font-bold text-lg hover:bg-california-gold hover:text-white transition-colors shadow-lg"
           >
-            Meet LeAna
+            {t('Meet LeAna', 'Conozca a LeAna')}
           </Link>
         </div>
 
@@ -67,47 +75,52 @@ export default function Home() {
         <section className="bg-deep-navy text-white py-14 px-6">
           <div className="max-w-6xl mx-auto">
             <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
-              <h2 className="font-playfair text-3xl sm:text-4xl font-bold">Come See Us</h2>
+              <h2 className="font-playfair text-3xl sm:text-4xl font-bold">{t('Come See Us', 'Venga a Vernos')}</h2>
               <Link to="/events" className="text-california-gold font-bold hover:text-white transition-colors">
-                Full calendar &rarr;
+                {t('Full calendar', 'Calendario completo')} &rarr;
               </Link>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {nextEvents.map((event, idx) => (
-                <div key={idx} className="bg-white/10 rounded-2xl p-6 border border-white/10 flex flex-col">
-                  <p className="text-california-gold font-bold text-sm uppercase tracking-wide">
-                    {formatEventDate(event.date, { weekday: 'short' })}
-                  </p>
-                  <h3 className="font-playfair text-xl font-bold mt-1">{event.title}</h3>
-                  {event.host && <p className="text-white/70 text-sm italic">{event.host}</p>}
-                  <p className="text-white/90 text-sm mt-2">{event.time}</p>
-                  {(event.location || event.address) && (
-                    <a
-                      href={mapUrl(event)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-white/70 text-sm hover:text-california-gold transition-colors mt-1"
-                    >
-                      📍 {[event.location, event.address].filter(Boolean).join(' · ')}
-                    </a>
-                  )}
-                  <div className="mt-4 pt-4 border-t border-white/10">
-                    {event.rsvpUrl ? (
+              {nextEvents.map((raw, idx) => {
+                const event = localizeEvent(raw, language);
+                return (
+                  <div key={idx} className="bg-white/10 rounded-2xl p-6 border border-white/10 flex flex-col">
+                    <p className="text-california-gold font-bold text-sm uppercase tracking-wide">
+                      {formatEventDate(event.date, { weekday: 'short' }, language)}
+                    </p>
+                    <h3 className="font-playfair text-xl font-bold mt-1">{event.title}</h3>
+                    {event.host && <p className="text-white/70 text-sm italic">{event.host}</p>}
+                    <p className="text-white/90 text-sm mt-2">{event.time}</p>
+                    {(event.location || event.address) && (
                       <a
-                        href={event.rsvpUrl}
+                        href={mapUrl(event)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-block bg-oakland-terracotta text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-california-gold transition-colors"
+                        className="text-white/70 text-sm hover:text-california-gold transition-colors mt-1"
                       >
-                        {event.rsvpLabel || 'RSVP'} &rarr;
+                        📍 {[event.location, event.address].filter(Boolean).join(' · ')}
                       </a>
-                    ) : (
-                      <span className="text-xs uppercase tracking-wide text-white/50">All are welcome</span>
                     )}
+                    <div className="mt-4 pt-4 border-t border-white/10">
+                      {event.rsvpUrl ? (
+                        <a
+                          href={event.rsvpUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-block bg-oakland-terracotta text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-california-gold transition-colors"
+                        >
+                          {event.rsvpLabel || t('RSVP', 'Confirmar asistencia')} &rarr;
+                        </a>
+                      ) : (
+                        <span className="text-xs uppercase tracking-wide text-white/50">
+                          {t('All are welcome', 'Todos son bienvenidos')}
+                        </span>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
@@ -128,33 +141,42 @@ export default function Home() {
         {/* Content Container */}
         <div className="relative z-10 max-w-4xl mx-auto bg-white/70 backdrop-blur-sm rounded-2xl p-8 sm:p-12 shadow-lg border border-white/50">
           <h2 className="font-playfair text-3xl sm:text-5xl font-bold text-rooted-black mb-4 text-center">
-            Hello, I’m<br />
+            {t('Hello, I’m', '¡Hola, soy')}<br />
             <span className="text-oakland-terracotta text-5xl sm:text-6xl">LeAna,</span>
           </h2>
           <p className="text-xl sm:text-2xl text-rooted-black/80 text-center font-light mb-8">
-            and I’m running for Oakland School Board because every child should get the opportunity to have a quality education!
+            {t(
+              'and I’m running for Oakland School Board because every child should get the opportunity to have a quality education!',
+              'y me estoy postulando para la Junta Escolar de Oakland porque cada niño merece la oportunidad de una educación de alta calidad!'
+            )}
           </p>
 
           <div className="flex flex-col md:flex-row items-center md:items-start gap-8 mt-6">
             <div className="w-48 h-48 sm:w-64 sm:h-64 flex-shrink-0 rounded-full overflow-hidden shadow-xl border-4 border-california-gold">
-              <img src="/images/headshot.JPG" alt="LeAna Powell Headshot" className="w-full h-full object-cover" />
+              <img src="/images/headshot.JPG" alt="LeAna Powell" className="w-full h-full object-cover" />
             </div>
 
             <div className="flex-grow">
-              <h3 className="font-playfair text-2xl font-bold text-rooted-black mb-4">About LeAna</h3>
-              <div className="space-y-4 text-base sm:text-lg text-rooted-black/80 leading-relaxed">
-                <p>I’m a proud Oakland native, mama bear, parent advocate, and community leader running for the Oakland School Board to represent District 6.</p>
-                <p>Born and raised in Oakland, my family has been in our town’s public schools for five generations. I have two children currently in Oakland Unified School District and one that graduated from high school. Oakland is home and the success of the district translates to success for my children and that of my extended family, friends, neighbors, and community, and so for me, this is very personal.</p>
-                <p>As a mother of three children, some experiencing disabilities, I understand firsthand the challenges families face navigating public education systems while advocating for our students’ success. One of my children graduated high school during the unprecedented and disruptive pandemic, which gave me direct experience with the academic, emotional, and social impacts families experienced, which continue to this day.</p>
-                <p>I am active in the Parent Teacher Organization (PTO) at Burckhalter Elementary, where I have experienced deep collaboration between families, educators, school staff, and administration. This has taught me that advocacy and collaboration are not opposites: a real mama bear knows when to roar and when to build bridges, and effective leadership requires both!</p>
-                <p>My professional experience includes budget and policy advocacy locally and at the California State Capitol; supporting and building capacity for education nonprofits that provide much needed resources to children and families; leading parent workshops related to children with special needs and behavioral health; engaging with public officials to ensure additional resources come to the community; and creating spaces to empower parents and strengthen community voices, among other experiences.</p>
+              <h3 className="font-playfair text-2xl font-bold text-rooted-black mb-4">
+                {t('About LeAna', '¿Quién es LeAna?')}
+              </h3>
+              <div className="text-base sm:text-lg">
+                {about ? (
+                  <Markdown>{about.body}</Markdown>
+                ) : (
+                  <div className="space-y-3" aria-hidden="true">
+                    {[...Array(4)].map((_, i) => (
+                      <div key={i} className="h-4 bg-rooted-black/5 rounded animate-pulse" />
+                    ))}
+                  </div>
+                )}
               </div>
 
               <Link
                 to="/issues"
                 className="inline-block mt-6 bg-oakland-terracotta text-white px-6 py-3 rounded-full font-bold hover:bg-sierra-sage transition-colors"
               >
-                Where LeAna stands &rarr;
+                {t('Where LeAna stands', 'La postura de LeAna')} &rarr;
               </Link>
             </div>
           </div>
@@ -163,7 +185,9 @@ export default function Home() {
 
       {/* 4. Links to other pages */}
       <section className="py-20 px-6 max-w-6xl mx-auto">
-        <h2 className="font-playfair text-3xl sm:text-5xl font-bold text-rooted-black mb-12 text-center">Explore Our Community</h2>
+        <h2 className="font-playfair text-3xl sm:text-5xl font-bold text-rooted-black mb-12 text-center">
+          {t('Explore Our Community', 'Explore Nuestra Comunidad')}
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {exploreCards.map((card) => (
             <Link
@@ -172,8 +196,8 @@ export default function Home() {
               className="group bg-white rounded-2xl p-8 text-center shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-2 border-transparent hover:border-california-gold"
             >
               <span className="text-6xl block mb-4 group-hover:scale-110 transition-transform">{card.emoji}</span>
-              <h3 className="font-playfair text-xl font-bold text-rooted-black">{card.title}</h3>
-              <p className="text-rooted-black/60 mt-2 text-sm">{card.note}</p>
+              <h3 className="font-playfair text-xl font-bold text-rooted-black">{t(card.titleEn, card.titleEs)}</h3>
+              <p className="text-rooted-black/60 mt-2 text-sm">{t(card.noteEn, card.noteEs)}</p>
             </Link>
           ))}
         </div>

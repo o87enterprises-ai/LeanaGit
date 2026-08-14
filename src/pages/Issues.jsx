@@ -1,97 +1,21 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import Markdown from '../components/ui/Markdown';
 import { useLanguage } from '../context/LanguageContext';
+import { useDocs } from '../lib/content';
 
 // The priorities live as markdown in public/content/projects/ (each one also has
 // an .es.md translation), so the campaign can edit them without touching code.
-const ISSUE_SLUGS = [
-  'safer-schools',
-  'students-with-disabilities',
-  'budget',
-  'superintendent',
-  'engagement',
+const ISSUE_PATHS = [
+  '/content/projects/safer-schools',
+  '/content/projects/students-with-disabilities',
+  '/content/projects/budget',
+  '/content/projects/superintendent',
+  '/content/projects/engagement',
 ];
-
-/** Minimal front-matter reader — enough for title/image/alt, no dependency. */
-function parseFrontMatter(raw) {
-  const match = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/.exec(raw);
-  if (!match) return { data: {}, body: raw };
-
-  const data = {};
-  for (const line of match[1].split(/\r?\n/)) {
-    const pair = /^\s*([A-Za-z_][\w-]*)\s*:\s*(.*)$/.exec(line);
-    if (!pair) continue; // list items and blank lines
-    const value = pair[2].trim().replace(/^["']|["']$/g, '');
-    if (value) data[pair[1]] = value;
-  }
-  return { data, body: raw.slice(match[0].length) };
-}
-
-async function fetchIssue(slug, language) {
-  const paths =
-    language === 'es'
-      ? [`/content/projects/${slug}.es.md`, `/content/projects/${slug}.md`]
-      : [`/content/projects/${slug}.md`];
-
-  for (const path of paths) {
-    try {
-      const res = await fetch(path);
-      if (!res.ok) continue;
-      const raw = await res.text();
-      if (raw.trimStart().startsWith('<')) continue; // dev-server HTML fallback
-      const { data, body } = parseFrontMatter(raw);
-      return { slug, title: data.title || slug, image: data.image, alt: data.alt, body };
-    } catch {
-      // try the next path
-    }
-  }
-  return null;
-}
-
-// react-markdown renders bare tags; give them the campaign's typography.
-const markdownComponents = {
-  p: ({ children }) => (
-    <p className="text-rooted-black/80 leading-relaxed mb-4">{children}</p>
-  ),
-  strong: ({ children }) => (
-    <strong className="font-bold text-rooted-black">{children}</strong>
-  ),
-  ul: ({ children }) => (
-    <ul className="list-disc list-inside space-y-2 mb-4 text-rooted-black/80">{children}</ul>
-  ),
-  a: ({ href, children }) => (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-oakland-terracotta font-semibold underline hover:text-sierra-sage transition-colors"
-    >
-      {children}
-    </a>
-  ),
-};
 
 export default function Issues() {
   const { language, t } = useLanguage();
-  const [issues, setIssues] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    let cancelled = false;
-    setLoading(true);
-
-    Promise.all(ISSUE_SLUGS.map((slug) => fetchIssue(slug, language))).then((results) => {
-      if (cancelled) return;
-      setIssues(results.filter(Boolean));
-      setLoading(false);
-    });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [language]);
+  const { docs: issues, loading } = useDocs(ISSUE_PATHS, language);
 
   return (
     <div className="min-h-screen bg-warm-ivory">
@@ -121,8 +45,7 @@ export default function Issues() {
         <div className="max-w-5xl mx-auto px-6 py-16 space-y-16">
           {issues.map((issue, index) => (
             <article
-              key={issue.slug}
-              id={issue.slug}
+              key={issue.path}
               className="scroll-mt-24 grid grid-cols-1 md:grid-cols-2 gap-8 items-start bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden"
             >
               {issue.image && (
@@ -141,9 +64,7 @@ export default function Issues() {
                 <h2 className="font-playfair text-2xl sm:text-3xl font-bold text-rooted-black mb-4">
                   {issue.title}
                 </h2>
-                <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
-                  {issue.body}
-                </ReactMarkdown>
+                <Markdown>{issue.body}</Markdown>
               </div>
             </article>
           ))}

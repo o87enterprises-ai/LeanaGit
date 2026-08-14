@@ -6,13 +6,20 @@ import { useLanguage } from '../../context/LanguageContext';
 // already lives on the home page rather than a page of its own.
 // `primary` marks the links that fit in the desktop bar; everything still shows
 // in the mobile menu, the footer, and the cards on the home page.
+// Spanish labels follow the campaign's own wording on leanaforoaklandschools.com/es/
 export const navLinks = [
   { nameEn: 'Home', nameEs: 'Inicio', to: '/', primary: true },
-  { nameEn: 'About', nameEs: 'Acerca de', to: '/#about', primary: true },
-  { nameEn: 'Issues', nameEs: 'Problemas', to: '/issues', primary: true },
-  { nameEn: 'Endorsements', nameEs: 'Endosos', to: '/endorsements', primary: true },
+  {
+    nameEn: 'About',
+    nameEs: '¿Quién es LeAna?',
+    shortEs: 'Sobre LeAna',
+    to: '/#about',
+    primary: true,
+  },
+  { nameEn: 'Issues', nameEs: 'Prioridades', to: '/issues', primary: true },
+  { nameEn: 'Endorsements', nameEs: 'Apoyos', to: '/endorsements', primary: true },
   { nameEn: 'Events', nameEs: 'Eventos', to: '/events', primary: true },
-  { nameEn: 'Volunteer', nameEs: 'Voluntario', to: '/volunteer', primary: true },
+  { nameEn: 'Volunteer', nameEs: '¡Apúnteme!', to: '/volunteer', primary: true },
   {
     nameEn: 'Articles & Achievements',
     nameEs: 'Artículos y Logros',
@@ -22,7 +29,7 @@ export const navLinks = [
     primary: true,
   },
   { nameEn: 'Bear Necessities', nameEs: 'Necesidades del Oso', to: '/bear-necessities' },
-  { nameEn: 'The Den Live!', nameEs: 'La Guarida en Vivo!', to: '/the-den-live' },
+  { nameEn: 'The Den Live!', nameEs: '¡La Guarida en Vivo!', to: '/the-den-live' },
   { nameEn: 'Cub House', nameEs: 'Casa del Cachorro', to: '/cub-house' },
 ];
 
@@ -60,9 +67,12 @@ export default function Header() {
           </a>
           <button
             onClick={toggleLanguage}
-            className="border border-white/50 px-3 py-1 rounded-full text-xs sm:text-sm hover:bg-white/20 transition-colors"
+            // Shows the language you would switch *to*, matching the campaign's own site.
+            lang={t('es', 'en')}
+            aria-label={t('Ver el sitio en español', 'View this site in English')}
+            className="border border-white/50 px-3 py-1 rounded-full text-xs sm:text-sm hover:bg-white/20 transition-colors whitespace-nowrap"
           >
-            {t('EN', 'ES')}
+            {t('Español', 'English')}
           </button>
 
           <button

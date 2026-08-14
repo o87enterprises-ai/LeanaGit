@@ -1,57 +1,60 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
 import {
   eventsByDate,
   upcomingEvents,
   pastEvents,
   defaultCalendarMonth,
   formatEventDate,
+  localizeEvent,
+  localeFor,
+  monthNames,
+  weekdayNames,
   parseDateStr,
   toDateStr,
   mapUrl,
 } from '../data/events';
 
-const monthNames = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December',
-];
-
 function EventDetails({ event, compact = false }) {
+  const { language, t } = useLanguage();
+  const e = localizeEvent(event, language);
+
   return (
     <div className={`bg-white rounded-xl shadow-sm border-l-4 border-oakland-terracotta ${compact ? 'p-4' : 'p-6'}`}>
-      <h4 className="font-playfair text-lg sm:text-xl font-bold text-rooted-black">{event.title}</h4>
-      {event.host && <p className="text-rooted-black/70 text-sm italic">{event.host}</p>}
+      <h4 className="font-playfair text-lg sm:text-xl font-bold text-rooted-black">{e.title}</h4>
+      {e.host && <p className="text-rooted-black/70 text-sm italic">{e.host}</p>}
 
-      <p className="text-sm text-oakland-terracotta font-semibold mt-2">{event.time}</p>
+      <p className="text-sm text-oakland-terracotta font-semibold mt-2">{e.time}</p>
 
-      {(event.location || event.address) && (
+      {(e.location || e.address) && (
         <a
-          href={mapUrl(event)}
+          href={mapUrl(e)}
           target="_blank"
           rel="noopener noreferrer"
           className="block text-sm text-rooted-black/70 hover:text-oakland-terracotta transition-colors mt-1"
         >
-          📍 {[event.location, event.address].filter(Boolean).join(' · ')}
+          📍 {[e.location, e.address].filter(Boolean).join(' · ')}
         </a>
       )}
 
-      {event.description && (
-        <p className="text-rooted-black/70 text-sm mt-3 leading-relaxed">{event.description}</p>
+      {e.description && (
+        <p className="text-rooted-black/70 text-sm mt-3 leading-relaxed">{e.description}</p>
       )}
 
-      {event.rsvpUrl ? (
+      {e.rsvpUrl ? (
         <a
-          href={event.rsvpUrl}
+          href={e.rsvpUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block mt-4 bg-oakland-terracotta text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-sierra-sage transition-colors"
         >
-          {event.rsvpLabel || 'RSVP'} &rarr;
+          {e.rsvpLabel || t('RSVP', 'Confirmar asistencia')} &rarr;
         </a>
       ) : (
         <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-rooted-black/40">
-          RSVP link coming soon — just come on by
+          {t('RSVP link coming soon — just come on by', 'Enlace de confirmación próximamente — ¡acompáñenos!')}
         </p>
       )}
     </div>
@@ -59,6 +62,7 @@ function EventDetails({ event, compact = false }) {
 }
 
 export default function Events() {
+  const { language, t } = useLanguage();
   const [currentMonth, setCurrentMonth] = useState(() => defaultCalendarMonth());
   const [selectedDateStr, setSelectedDateStr] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -66,6 +70,7 @@ export default function Events() {
   const upcoming = upcomingEvents();
   const past = pastEvents();
   const todayStr = toDateStr(new Date());
+  const months = monthNames(language);
 
   const generateCalendar = () => {
     const year = currentMonth.getFullYear();
@@ -114,27 +119,30 @@ export default function Events() {
 
       <div className="relative z-10 max-w-3xl mx-auto">
         <h1 className="font-playfair text-4xl sm:text-6xl font-bold text-rooted-black mb-3 text-center">
-          Events Calendar
+          {t('Events Calendar', 'Calendario de Eventos')}
         </h1>
         <p className="text-center text-rooted-black/60 mb-10 max-w-xl mx-auto">
-          Meet the mama bear in the wild. Tap a highlighted day for details and RSVP links.
+          {t(
+            'Meet the mama bear in the wild. Tap a highlighted day for details and RSVP links.',
+            'Conozca a la mamá osa en persona. Toque un día marcado para ver los detalles y confirmar su asistencia.'
+          )}
         </p>
 
         {/* Calendar Header */}
         <div className="flex justify-between items-center mb-8 bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
           <button
             onClick={() => goToMonth(-1)}
-            aria-label="Previous month"
+            aria-label={t('Previous month', 'Mes anterior')}
             className="px-4 py-2 rounded-full bg-warm-ivory hover:bg-california-gold transition-colors"
           >
             &larr;
           </button>
           <h2 className="font-playfair text-2xl font-bold text-rooted-black">
-            {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
+            {months[currentMonth.getMonth()]} {currentMonth.getFullYear()}
           </h2>
           <button
             onClick={() => goToMonth(1)}
-            aria-label="Next month"
+            aria-label={t('Next month', 'Mes siguiente')}
             className="px-4 py-2 rounded-full bg-warm-ivory hover:bg-california-gold transition-colors"
           >
             &rarr;
@@ -143,7 +151,7 @@ export default function Events() {
 
         {/* Calendar Grid */}
         <div className="grid grid-cols-7 gap-2 bg-white p-4 rounded-2xl shadow-md border border-gray-100">
-          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((d) => (
+          {weekdayNames(language).map((d) => (
             <div key={d} className="text-xs sm:text-sm font-bold text-rooted-black/50 text-center py-2">{d}</div>
           ))}
 
@@ -155,7 +163,14 @@ export default function Events() {
                 <motion.button
                   layoutId={day.dateStr}
                   onClick={() => day.hasEvents && openDate(day.dateStr)}
-                  aria-label={day.hasEvents ? `Events on ${formatEventDate(day.dateStr)}` : undefined}
+                  aria-label={
+                    day.hasEvents
+                      ? t(
+                          `Events on ${formatEventDate(day.dateStr, {}, language)}`,
+                          `Eventos del ${formatEventDate(day.dateStr, {}, language)}`
+                        )
+                      : undefined
+                  }
                   className={`w-full h-full rounded-full text-base font-medium transition-all flex flex-col items-center justify-center ${
                     day.hasEvents
                       ? 'bg-california-gold/30 text-rooted-black hover:bg-california-gold hover:scale-105 cursor-pointer'
@@ -173,14 +188,14 @@ export default function Events() {
         {/* Upcoming events list */}
         <section className="mt-14">
           <h2 className="font-playfair text-2xl sm:text-3xl font-bold text-rooted-black mb-6">
-            Upcoming Events
+            {t('Upcoming Events', 'Próximos Eventos')}
           </h2>
 
           {upcoming.length === 0 ? (
             <p className="text-rooted-black/60 bg-white rounded-xl p-6 border border-gray-100">
-              No events on the calendar right now — check back soon, or{' '}
+              {t('No events on the calendar right now — check back soon, or ', 'No hay eventos programados por ahora. Vuelva pronto o ')}
               <Link to="/volunteer" className="text-oakland-terracotta font-bold underline">
-                sign up to host one
+                {t('sign up to host one', 'apúntese para organizar uno')}
               </Link>
               .
             </p>
@@ -190,11 +205,14 @@ export default function Events() {
                 <div key={`${event.date}-${idx}`} className="flex gap-4 items-start">
                   <button
                     onClick={() => openDate(event.date)}
-                    aria-label={`Details for ${event.title} on ${formatEventDate(event.date)}`}
+                    aria-label={t(
+                      `Details for ${event.title}`,
+                      `Detalles de ${localizeEvent(event, language).title}`
+                    )}
                     className="flex-shrink-0 w-16 sm:w-20 rounded-xl bg-oakland-terracotta text-white text-center py-3 shadow-sm hover:bg-sierra-sage transition-colors"
                   >
                     <span className="block text-xs uppercase tracking-wide">
-                      {parseDateStr(event.date).toLocaleDateString('en-US', { month: 'short' })}
+                      {parseDateStr(event.date).toLocaleDateString(localeFor(language), { month: 'short' }).replace('.', '')}
                     </span>
                     <span className="block font-playfair text-2xl font-bold leading-tight">
                       {parseDateStr(event.date).getDate()}
@@ -212,35 +230,44 @@ export default function Events() {
         {/* Past events */}
         {past.length > 0 && (
           <section className="mt-12">
-            <h2 className="font-playfair text-xl font-bold text-rooted-black/60 mb-4">Past Events</h2>
+            <h2 className="font-playfair text-xl font-bold text-rooted-black/60 mb-4">
+              {t('Past Events', 'Eventos Pasados')}
+            </h2>
             <ul className="space-y-2">
-              {past.map((event, idx) => (
-                <li key={`${event.date}-${idx}`} className="text-sm text-rooted-black/50">
-                  <span className="font-semibold">{formatEventDate(event.date, { weekday: undefined })}</span>
-                  {' — '}
-                  {event.title}
-                  {event.host ? `, ${event.host.replace(/^Hosted by /, 'hosted by ')}` : ''}
-                </li>
-              ))}
+              {past.map((event, idx) => {
+                const e = localizeEvent(event, language);
+                return (
+                  <li key={`${event.date}-${idx}`} className="text-sm text-rooted-black/50">
+                    <span className="font-semibold">
+                      {formatEventDate(event.date, { weekday: undefined }, language)}
+                    </span>
+                    {' — '}
+                    {e.title}
+                  </li>
+                );
+              })}
             </ul>
           </section>
         )}
 
         <div className="mt-12 text-center bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
           <p className="text-rooted-black/70 mb-4">
-            Want to host a gathering, house party, or meet-and-greet for LeAna?
+            {t(
+              'Want to host a gathering, house party, or meet-and-greet for LeAna?',
+              '¿Le gustaría organizar una reunión, una fiesta en casa o un encuentro con LeAna?'
+            )}
           </p>
           <Link
             to="/volunteer"
             className="inline-block bg-oakland-terracotta text-white px-6 py-3 rounded-full font-bold hover:bg-sierra-sage transition-colors"
           >
-            Get in touch &rarr;
+            {t('Get in touch', 'Contáctenos')} &rarr;
           </Link>
         </div>
 
         <div className="mt-10 text-center">
           <Link to="/" className="text-oakland-terracotta font-bold underline hover:text-sierra-sage transition-colors">
-            Return Home
+            {t('Return Home', 'Volver al Inicio')}
           </Link>
         </div>
       </div>
@@ -258,7 +285,7 @@ export default function Events() {
               className="bg-warm-ivory p-6 sm:p-8 rounded-2xl shadow-2xl max-w-md w-full border border-white/20 my-8"
             >
               <h3 className="font-playfair text-2xl font-bold text-rooted-black mb-4">
-                {formatEventDate(selectedDateStr)}
+                {formatEventDate(selectedDateStr, {}, language)}
               </h3>
               <div className="space-y-4">
                 {eventsByDate[selectedDateStr].map((event, idx) => (
@@ -269,7 +296,7 @@ export default function Events() {
                 onClick={closeModal}
                 className="mt-6 w-full py-3 rounded-full bg-oakland-terracotta text-white font-bold hover:bg-sierra-sage transition-colors"
               >
-                Close
+                {t('Close', 'Cerrar')}
               </button>
             </motion.div>
           </div>
