@@ -1,0 +1,44 @@
+// Endorsers, in the order supplied by the campaign.
+// An asterisk in a title means the organization is listed for identification
+// purposes only — that note is rendered once at the bottom of the page.
+export const endorsements = [
+  { name: 'Nate Miley', title: 'Alameda County Supervisor' },
+  { name: 'Dr. César Cruz', title: 'Founder, Homies Empowerment*' },
+  { name: 'Patrice Berry', title: 'Oakland School Board Director (District 5)' },
+  { name: 'Mike Hutchinson', title: 'Oakland School Board Director (District 4)' },
+  { name: 'Loren Taylor', title: 'Former Oakland City Councilmember (District 6)' },
+  { name: 'Shanthi Gonzales', title: 'Former Oakland School Board Director (District 6)' },
+  { name: 'Sam Davis', title: 'Former Oakland School Board Director and President (District 1)' },
+  { name: 'Jorge Lerma', title: 'Former Oakland School Board Director (District 5)' },
+  { name: 'Mya Whitaker', title: 'Executive Director, Bay Area Urban Debate League*' },
+  { name: 'Luan Huynh', title: 'Community Activist and Founder, Robin Hood Synergy' },
+  { name: 'JT Mates-Muchin', title: 'Previous president, Skyline PTSA*' },
+  { name: 'Hector Salazar', title: 'N. Calif. Exec. Dir., Playworks*; Co-President, Montera PTO*' },
+  { name: 'John Jones III', title: 'Roosevelt parent, Urban Strategies Council*' },
+  { name: 'Dr. Carin Geathers', title: 'Principal, Burckhalter Elementary*' },
+  { name: 'Aleta Williams', title: 'Teacher, Burckhalter Elementary*' },
+  { name: 'Simone Delucchi', title: 'Community School Manager, Frick United Academy of Language' },
+  { name: 'Josephine Guzmán', title: 'Public Policy Manager, Oakland Chamber of Commerce*' },
+  { name: 'Charlene Griffin-Johnson', title: 'Oakland Athletic League*' },
+  { name: 'Patti Joselewitz', title: 'Oakland Jewish Alliance*' },
+  { name: 'Icela González Santana', title: 'Xicana educator, Merritt College*' },
+  { name: 'Silvia Guzmán', title: 'Faith in Action East Bay*' },
+  { name: 'María Jiménez', title: 'CCPA* parent and community leader with Faith in Action East Bay*' },
+  { name: 'Laura Ochoa', title: 'CCPA* parent leader' },
+  { name: 'Cecilia Rodríguez', title: 'CCPA* parent leader' },
+  { name: 'Cynthia Adams', title: 'Community Education Advocate' },
+  { name: 'Katie and Cody Rhodes', title: 'Burckhalter PTO* members' },
+  { name: 'Mahagany Gillam', title: "Director, Oakland Women's Center*" },
+  { name: 'Amber Childress', title: 'Former Alameda County School Board Trustee' },
+  { name: 'Darren White', title: 'Executive Director, Realized Potential, Inc.*' },
+  { name: 'Jerry Wolfe', title: 'Retired principal, Frick Middle School*' },
+  { name: 'Odiaka Gonzalez', title: 'Non-profit and Parent-Teacher Organization* leader' },
+  { name: 'Eli Ferran', title: 'Senior Attorney, State of California DTSC*' },
+  { name: 'Andrea Dawson', title: 'Retired project mgr., SFUSD*; member, OUSD Bond Oversight Committee*' },
+  { name: 'Genice Jacobs', title: 'Anti-Trafficking Consultant and California Democratic Party* Delegate' },
+  { name: 'Dr. Delores Thompson', title: 'Radio/Television Personality; Oakland School of the Arts* educator' },
+];
+
+/** The campaign's endorsement / volunteer sign-up form. */
+export const SIGNUP_FORM_URL =
+  'https://docs.google.com/forms/d/e/1FAIpQLScoq6dBd9UHVqT4tjFUn3uIFEdhA2uvzQv-2D5jLoJRCVGS3A/viewform';

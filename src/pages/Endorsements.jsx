@@ -1,11 +1,67 @@
 import { Link } from 'react-router-dom';
+import { endorsements, SIGNUP_FORM_URL } from '../data/endorsements';
 
 export default function Endorsements() {
   return (
-    <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-6 py-20 bg-warm-ivory">
-      <h1 className="font-playfair text-4xl sm:text-6xl font-bold text-rooted-black mb-4">Endorsements</h1>
-      <p className="text-xl text-rooted-black/60 mb-8 max-w-2xl">We are collecting powerful endorsements from community leaders. This page will be live very soon!</p>
-      <Link to="/" className="text-oakland-terracotta font-bold underline hover:text-sierra-sage transition-colors">Return Home</Link>
+    <div className="min-h-screen py-20 px-6 bg-warm-ivory relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none z-0 opacity-20">
+        <span className="absolute top-16 right-8 text-6xl anim-float-2 text-rooted-black/10">🐾</span>
+        <span className="absolute bottom-24 left-6 text-5xl anim-float-1 text-rooted-black/10">🐾</span>
+      </div>
+
+      <div className="relative z-10 max-w-4xl mx-auto">
+        <h1 className="font-playfair text-4xl sm:text-6xl font-bold text-rooted-black mb-3 text-center">
+          Endorsements
+        </h1>
+        <p className="text-center text-rooted-black/60 mb-12 max-w-2xl mx-auto">
+          Educators, parents, principals, and elected leaders across Oakland are backing this
+          mama bear. Here is who is standing with us.
+        </p>
+
+        <div className="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
+          <ul className="divide-y divide-gray-100">
+            {endorsements.map((person) => (
+              <li
+                key={person.name}
+                className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6 px-6 py-4 hover:bg-warm-ivory/60 transition-colors"
+              >
+                <span className="font-playfair text-lg font-bold text-rooted-black sm:w-2/5 flex-shrink-0">
+                  {person.name}
+                </span>
+                <span className="text-rooted-black/70 text-sm sm:text-base">{person.title}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <p className="text-xs text-rooted-black/50 mt-4 text-center italic">
+          * Organizational affiliations listed for identification purposes only
+        </p>
+
+        <div className="mt-12 text-center bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+          <h2 className="font-playfair text-2xl font-bold text-rooted-black mb-2">
+            Add your name to the list
+          </h2>
+          <p className="text-rooted-black/70 mb-6 max-w-xl mx-auto">
+            Every name helps. Endorse LeAna and let us know if you would like to volunteer,
+            host an event, or put up a lawn sign.
+          </p>
+          <a
+            href={SIGNUP_FORM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-oakland-terracotta text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-sierra-sage transition-colors shadow-md"
+          >
+            Add your name here! &rarr;
+          </a>
+        </div>
+
+        <div className="mt-10 text-center">
+          <Link to="/" className="text-oakland-terracotta font-bold underline hover:text-sierra-sage transition-colors">
+            Return Home
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

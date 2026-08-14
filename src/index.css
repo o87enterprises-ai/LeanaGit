@@ -8,6 +8,30 @@ body {
   -webkit-touch-callout: none;
 }
 
+/* Smooth scrolling for in-page anchors (e.g. the About tab -> #about) */
+html {
+  scroll-behavior: smooth;
+}
+
+/* --- Hero video / poster --- */
+.text-shadow-hero {
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
+}
+
+@keyframes slowZoom {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.12); }
+}
+.anim-slow-zoom { animation: slowZoom 24s ease-in-out infinite alternate; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .anim-slow-zoom,
+  .anim-float-1,
+  .anim-float-2,
+  .anim-float-3 { animation: none; }
+}
+
 /* --- Floating Paw Print Animations --- */
 @keyframes float1 {
   0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
