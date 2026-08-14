@@ -1,1 +1,27 @@
-/*    /index.html   200
+# Cloudflare Pages redirects. First match wins, so the SPA fallback stays last.
+
+# --- Old leanaforoaklandschools.com URLs (the Hugo site) -------------------
+# Anyone arriving from a printed flyer, a social post, or a search result
+# lands somewhere sensible instead of a blank page.
+
+/about/                 /#about             301
+/about                  /#about             301
+/projects/              /issues             301
+/projects/*             /issues             301
+/tags/*                 /                   301
+/tags                   /                   301
+/categories/*           /                   301
+/categories             /                   301
+
+# Spanish visitors stay in Spanish — ?lang=es sets the site's language.
+/es/about/              /?lang=es#about     301
+/es/projects/           /issues?lang=es     301
+/es/projects/*          /issues?lang=es     301
+/es/tags/*              /?lang=es           301
+/es/categories/*        /?lang=es           301
+/es/*                   /?lang=es           301
+/es                     /?lang=es           301
+
+# --- Single-page app fallback (keep last) ---------------------------------
+# Without this, /events, /issues and friends 404 on a hard refresh.
+/*                      /index.html         200
