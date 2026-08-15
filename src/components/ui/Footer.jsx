@@ -49,7 +49,9 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-4 text-xs mt-2">
-            <a href="mailto:info@leanaforoaklandschools.com" className="hover:text-white transition-colors">
+            {/* leana@ is the address that actually forwards; info@ has no
+                routing rule and mail to it is dropped. */}
+            <a href="mailto:leana@leanaforoaklandschools.com" className="hover:text-white transition-colors">
               {t('Contact', 'Contacto')}
             </a>
             <Link to="/privacy" className="hover:text-white transition-colors">
