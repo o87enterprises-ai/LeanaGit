@@ -22,7 +22,7 @@ export const endorsements = [
   { name: 'Charlene Griffin-Johnson', title: 'Oakland Athletic League*' },
   { name: 'Patti Joselewitz', title: 'Oakland Jewish Alliance*' },
   { name: 'Icela González Santana', title: 'Xicana educator, Merritt College*' },
-  { name: 'Silvia Guzmán', title: 'Faith in Action East Bay*' },
+  { name: 'Silvia Guzmán', title: 'Board Member, The Unity Council*; Founder, Casa de Mago' },
   { name: 'María Jiménez', title: 'CCPA* parent and community leader with Faith in Action East Bay*' },
   { name: 'Laura Ochoa', title: 'CCPA* parent leader' },
   { name: 'Cecilia Rodríguez', title: 'CCPA* parent leader' },
@@ -37,4 +37,6 @@ export const endorsements = [
   { name: 'Andrea Dawson', title: 'Retired project mgr., SFUSD*; member, OUSD Bond Oversight Committee*' },
   { name: 'Genice Jacobs', title: 'Anti-Trafficking Consultant and California Democratic Party* Delegate' },
   { name: 'Dr. Delores Thompson', title: 'Radio/Television Personality; Oakland School of the Arts* educator' },
+  { name: 'Maggie Jiménez', title: '2026 Valedictorian, CCPA; incoming student at UCLA' },
+  { name: 'Erin Armstrong', title: 'Deputy Chief of Staff, Supervisor Nate Miley' },
 ];
