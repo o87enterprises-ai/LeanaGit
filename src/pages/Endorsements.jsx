@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { endorsements } from '../data/endorsements';
 import { signupFormUrl } from '../data/forms';
 import { useLanguage } from '../context/LanguageContext';
+import FlyerGallery from '../components/ui/FlyerGallery';
 
 // Supporters photo at the top of the page. Upload it to public/images/ named
 // endorsements-group and it appears — .jpg, .jpeg or .png all work, so the
@@ -56,6 +57,12 @@ export default function Endorsements() {
         </p>
 
         <GroupPhoto />
+
+        <FlyerGallery />
+
+        <h2 className="font-playfair text-2xl sm:text-3xl font-bold text-rooted-black mt-14 mb-4">
+          {t('The Full List', 'La Lista Completa')}
+        </h2>
 
         <div className="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
           <ul className="divide-y divide-gray-100">
