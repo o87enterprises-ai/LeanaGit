@@ -38,5 +38,6 @@ export const endorsements = [
   { name: 'Genice Jacobs', title: 'Anti-Trafficking Consultant and California Democratic Party* Delegate' },
   { name: 'Dr. Delores Thompson', title: 'Radio/Television Personality; Oakland School of the Arts* educator' },
   { name: 'Maggie Jiménez', title: '2026 Valedictorian, CCPA; incoming student at UCLA' },
+  { name: 'Sheila Haynes', title: 'OUSD parent leader' },
   { name: 'Erin Armstrong', title: 'Deputy Chief of Staff, Supervisor Nate Miley' },
 ];

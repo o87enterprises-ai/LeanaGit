@@ -13,7 +13,7 @@ export const flyers = [
   { slug: 'nate-miley',       name: 'Nate Miley' },
   { slug: 'cesar-cruz',       name: 'Dr. César Cruz' },
   { slug: 'patrice-berry',    name: 'Patrice Berry' },
-  { slug: 'mike-hutchinson',  name: 'Mike Hutchinson', image: false },
+  { slug: 'mike-hutchinson',  name: 'Mike Hutchinson' },
   { slug: 'shanthi-gonzales', name: 'Shanthi Gonzales' },
   { slug: 'sam-davis',        name: 'Sam Davis' },
   { slug: 'jorge-lerma',      name: 'Jorge Lerma' },
