@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { navLinks } from './Header'; // Import the master list from Header
+import { navLinks, NavLink } from './Header'; // Import the master list from Header
 import { useLanguage } from '../../context/LanguageContext';
 
 export default function Footer() {
@@ -12,13 +12,13 @@ export default function Footer() {
         {/* Grid of all page links */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 mb-8">
           {navLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
+            <NavLink
+              key={link.to || link.href}
+              link={link}
               className="text-sm hover:text-white transition-colors"
             >
               {t(link.nameEn, link.nameEs)}
-            </Link>
+            </NavLink>
           ))}
         </div>
 

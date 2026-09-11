@@ -4,8 +4,10 @@ import { useLanguage } from '../../context/LanguageContext';
 
 // `to` is what React Router navigates to. About points at the section that
 // already lives on the home page rather than a page of its own.
+// `href` marks a link that leaves the site (opens in a new tab) instead —
+// set that and omit `to` for things like the shared Google Drive folder.
 // `primary` marks the links that fit in the desktop bar; everything still shows
-// in the mobile menu, the footer, and the cards on the home page.
+// in the mobile menu and the footer.
 // Spanish labels follow the campaign's own wording on leanaforoaklandschools.com/es/
 export const navLinks = [
   { nameEn: 'Home', nameEs: 'Inicio', to: '/', primary: true },
@@ -32,9 +34,36 @@ export const navLinks = [
   { nameEn: 'The Den Live!', nameEs: '¡La Guarida en Vivo!', to: '/the-den-live' },
   // Cub House is off the site for now — the name didn't read clearly in either
   // language. src/pages/CubHouse.jsx is still here for whenever it comes back.
+  {
+    // Shared Drive folder of campaign photos/video for outside groups covering the race.
+    nameEn: 'Media',
+    nameEs: 'Medios',
+    href: 'https://drive.google.com/drive/folders/1LYK8BoPqGmXD4jxChPRxC3si0AYYJ5mG?usp=drive_link',
+  },
+  {
+    nameEn: 'Youth Vote',
+    nameEs: 'Votación por Jóvenes',
+    href: 'https://acvote.alamedacountyca.gov/youthvoting',
+  },
 ];
 
 const primaryNav = navLinks.filter((link) => link.primary);
+
+/** One nav entry: an internal route, or an external link that opens in a new tab. */
+export function NavLink({ link, className, onClick, children }) {
+  if (link.href) {
+    return (
+      <a href={link.href} target="_blank" rel="noopener noreferrer" className={className} onClick={onClick}>
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link to={link.to} className={className} onClick={onClick}>
+      {children}
+    </Link>
+  );
+}
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -50,10 +79,10 @@ export default function Header() {
 
         <nav className="hidden lg:flex items-center gap-4 xl:gap-5 text-base font-medium">
           {primaryNav.map((link) => (
-            <Link key={link.to} to={link.to} className="hover:text-california-gold transition-colors whitespace-nowrap">
+            <NavLink key={link.to || link.href} link={link} className="hover:text-california-gold transition-colors whitespace-nowrap">
               <span className="xl:hidden">{t(link.shortEn || link.nameEn, link.shortEs || link.nameEs)}</span>
               <span className="hidden xl:inline">{t(link.nameEn, link.nameEs)}</span>
-            </Link>
+            </NavLink>
           ))}
         </nav>
 
@@ -98,14 +127,14 @@ export default function Header() {
       <div className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-[600px] opacity-100 mt-4' : 'max-h-0 opacity-0'}`}>
         <div className="flex flex-col gap-3 bg-oakland-terracotta/95 backdrop-blur-sm rounded-lg p-4 border border-white/20">
           {navLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
+            <NavLink
+              key={link.to || link.href}
+              link={link}
               onClick={() => setIsOpen(false)}
               className="block px-3 py-2 rounded hover:bg-white/20 transition-colors font-medium"
             >
               {t(link.nameEn, link.nameEs)}
-            </Link>
+            </NavLink>
           ))}
         </div>
       </div>

@@ -40,4 +40,11 @@ export const endorsements = [
   { name: 'Maggie Jiménez', title: '2026 Valedictorian, CCPA; incoming student at UCLA' },
   { name: 'Sheila Haynes', title: 'OUSD parent leader' },
   { name: 'Erin Armstrong', title: 'Deputy Chief of Staff, Supervisor Nate Miley' },
+  { name: 'Lamar Hancock', title: 'Teacher and lifelong Oaklander' },
+  { name: 'Aimee Eng', title: 'Former Oakland school board president & current OUSD parent' },
+  { name: 'David Silver', title: "Former mayor's director of education & founder of TCN" },
+  { name: 'Terry Taplin', title: 'Berkeley City Councilmember' },
+  { name: 'Pawan Grewal', title: 'Teacher & District 6 voter' },
+  { name: 'Semuteh Freeman', title: 'Attorney, OUSD Parent & District 6 voter' },
+  { name: 'Alice & Jamie Moore', title: 'OUSD volunteers & District 6 voters' },
 ];
