@@ -100,12 +100,17 @@ export default function Footer() {
           <p className="text-xs text-white/40 mt-4">© {new Date().getFullYear()} LeAna for Oakland Schools</p>
 
           {/* Site credit — separate from the campaign's own required disclosures above. */}
-          <p className="text-xs text-white/30 pt-4 mt-2 border-t border-white/10 max-w-md mx-auto">
-            {t('Website by', 'Sitio web por')} Truegle Co. ·{' '}
-            <a href="tel:+15416230460" className="hover:text-white/70 transition-colors">(541) 623-0460</a> ·{' '}
-            <a href="mailto:truegleai@proton.me" className="hover:text-white/70 transition-colors">truegleai@proton.me</a> ·{' '}
-            <a href="https://truegle.info" target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors">truegle.info</a>
-          </p>
+          <div className="flex flex-col items-center gap-2 text-xs text-white/30 pt-4 mt-2 border-t border-white/10 max-w-md mx-auto">
+            <a href="https://truegle.info" target="_blank" rel="noopener noreferrer" className="opacity-80 hover:opacity-100 transition-opacity">
+              <img src="/images/truegle-logo.png" alt="Truegle" className="h-5 w-5 rounded-md" />
+            </a>
+            <p>
+              {t('Website by', 'Sitio web por')} Truegle Co. ·{' '}
+              <a href="tel:+15416230460" className="hover:text-white/70 transition-colors">(541) 623-0460</a> ·{' '}
+              <a href="mailto:truegleai@proton.me" className="hover:text-white/70 transition-colors">truegleai@proton.me</a> ·{' '}
+              <a href="https://truegle.info" target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors">truegle.info</a>
+            </p>
+          </div>
         </div>
 
       </div>
