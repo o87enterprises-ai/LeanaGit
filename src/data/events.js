@@ -135,11 +135,11 @@ export const events = [
     hostEs: 'Organizada por Alice y Jamie Moore',
     time: '3:00 – 5:00 PM',
     timeEs: '3:00 – 5:00 p. m.',
-    address: '3951 Altamont Ave, Oakland, CA',
     description:
-      'An afternoon with District 6 neighbors and friends of the campaign.',
+      'An afternoon with District 6 neighbors and friends of the campaign. RSVP for the address.',
     descriptionEs:
-      'Una tarde con vecinos del Distrito 6 y amistades de la campaña.',
+      'Una tarde con vecinos del Distrito 6 y amistades de la campaña. Confirme su asistencia para recibir la dirección.',
+    rsvpUrl: 'https://secure.actblue.com/donate/leana-moores',
   },
 ];
 
