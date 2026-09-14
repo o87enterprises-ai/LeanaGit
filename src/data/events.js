@@ -81,6 +81,20 @@ export const events = [
     rsvpUrl: 'https://secure.actblue.com/donate/leana-katie',
   },
   {
+    date: '2026-09-22',
+    title: 'District 6 Candidate Forum',
+    titleEs: 'Foro de Candidatos del Distrito 6',
+    time: '6:00 – 8:00 PM',
+    timeEs: '6:00 – 8:00 p. m.',
+    location: 'Skyline High School',
+    locationEs: 'Escuela Secundaria Skyline',
+    address: '12250 Skyline Blvd, Oakland, CA',
+    description:
+      'Meet the candidates running for the District 6 school board seat and ask your questions before you vote.',
+    descriptionEs:
+      'Conozca a los candidatos al puesto del Distrito 6 en la junta escolar y haga sus preguntas antes de votar.',
+  },
+  {
     date: '2026-09-24',
     title: 'Fundraiser with Chef Nigel',
     titleEs: 'Recaudación de Fondos con el Chef Nigel',
@@ -111,6 +125,21 @@ export const events = [
       'Our last Saturday walk before the election, in costume if you like — costumes optional, candy encouraged.',
     descriptionEs:
       'Nuestra última caminata del sábado antes de las elecciones, con disfraz si gusta: los disfraces son opcionales y los dulces bienvenidos.',
+  },
+
+  {
+    date: '2026-10-18',
+    title: 'House Party',
+    titleEs: 'Fiesta en Casa',
+    host: 'Hosted by Alice & Jamie Moore',
+    hostEs: 'Organizada por Alice y Jamie Moore',
+    time: '3:00 – 5:00 PM',
+    timeEs: '3:00 – 5:00 p. m.',
+    address: '3951 Altamont Ave, Oakland, CA',
+    description:
+      'An afternoon with District 6 neighbors and friends of the campaign.',
+    descriptionEs:
+      'Una tarde con vecinos del Distrito 6 y amistades de la campaña.',
   },
 ];
 
