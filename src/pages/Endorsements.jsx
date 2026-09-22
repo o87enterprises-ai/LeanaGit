@@ -35,6 +35,50 @@ function GroupPhoto() {
   );
 }
 
+// Endorsing organizations, shown as logos above the Full List. Upload each
+// logo to public/images/ with the slug below — .jpg, .jpeg, .png, .svg and
+// .webp all work, so the exact format doesn't matter. To add another
+// organization, add a line here with a new slug and name.
+const organizations = [
+  { slug: 'org-ppa-mar-monte', name: 'Planned Parenthood Advocates Mar Monte' },
+  { slug: 'org-empower-oakland', name: 'Empower Oakland' },
+];
+
+const LOGO_EXTENSIONS = ['jpg', 'jpeg', 'png', 'svg', 'webp'];
+
+function OrgLogo({ slug, name }) {
+  const [attempt, setAttempt] = useState(0);
+  if (attempt >= LOGO_EXTENSIONS.length) return null;
+
+  return (
+    <img
+      src={`/images/${slug}.${LOGO_EXTENSIONS[attempt]}`}
+      alt={name}
+      onError={() => setAttempt((n) => n + 1)}
+      className="h-20 sm:h-24 w-auto object-contain"
+    />
+  );
+}
+
+function OrganizationLogos() {
+  const { t } = useLanguage();
+  return (
+    <div className="mb-14">
+      <h2 className="font-playfair text-2xl sm:text-3xl font-bold text-rooted-black mb-6 text-center">
+        {t('Organizations', 'Organizaciones')}
+      </h2>
+      <div className="flex flex-wrap items-center justify-center gap-10 bg-white rounded-2xl shadow-sm border border-gray-100 px-8 py-10">
+        {organizations.map((org) => (
+          <div key={org.slug} className="flex flex-col items-center gap-3">
+            <OrgLogo slug={org.slug} name={org.name} />
+            <span className="text-rooted-black/70 text-sm text-center max-w-[14rem]">{org.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function Endorsements() {
   const { language, t } = useLanguage();
 
@@ -59,6 +103,8 @@ export default function Endorsements() {
         <GroupPhoto />
 
         <FlyerGallery />
+
+        <OrganizationLogos />
 
         <h2 className="font-playfair text-2xl sm:text-3xl font-bold text-rooted-black mt-14 mb-4">
           {t('The Full List', 'La Lista Completa')}
