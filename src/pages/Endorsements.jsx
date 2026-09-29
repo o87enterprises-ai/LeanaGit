@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { endorsements } from '../data/endorsements';
+import { endorsements, topEndorsers, organizations } from '../data/endorsements';
 import { signupFormUrl } from '../data/forms';
 import { useLanguage } from '../context/LanguageContext';
 import FlyerGallery from '../components/ui/FlyerGallery';
@@ -35,47 +35,32 @@ function GroupPhoto() {
   );
 }
 
-// Endorsing organizations, shown as logos above the Full List. Upload each
-// logo to public/images/ with the slug below — .jpg, .jpeg, .png, .svg and
-// .webp all work, so the exact format doesn't matter. To add another
-// organization, add a line here with a new slug and name.
-const organizations = [
-  { slug: 'org-ppa-mar-monte', name: 'Planned Parenthood Advocates Mar Monte' },
-  { slug: 'org-empower-oakland', name: 'Empower Oakland' },
-];
-
-const LOGO_EXTENSIONS = ['jpg', 'jpeg', 'png', 'svg', 'webp'];
-
-function OrgLogo({ slug, name }) {
-  const [attempt, setAttempt] = useState(0);
-  if (attempt >= LOGO_EXTENSIONS.length) return null;
-
+// A circular thumbnail with a name and a line of detail beside it, like the
+// campaign's printed endorsement sheet. Photos and logos are both square images.
+function EndorserCard({ image, name, detail }) {
   return (
-    <img
-      src={`/images/${slug}.${LOGO_EXTENSIONS[attempt]}`}
-      alt={name}
-      onError={() => setAttempt((n) => n + 1)}
-      className="h-20 sm:h-24 w-auto object-contain"
-    />
+    <li className="flex items-center gap-4">
+      <img
+        src={image}
+        alt=""
+        width="80"
+        height="80"
+        loading="lazy"
+        className="w-[72px] h-[72px] sm:w-20 sm:h-20 flex-shrink-0 rounded-full object-cover border-[3px] border-oakland-terracotta"
+      />
+      <div>
+        <p className="font-playfair font-bold text-rooted-black leading-snug">{name}</p>
+        {detail && <p className="text-sm text-rooted-black/70 leading-snug mt-0.5">{detail}</p>}
+      </div>
+    </li>
   );
 }
 
-function OrganizationLogos() {
-  const { t } = useLanguage();
+function CardGrid({ children }) {
   return (
-    <div className="mb-14">
-      <h2 className="font-playfair text-2xl sm:text-3xl font-bold text-rooted-black mb-6 text-center">
-        {t('Organizations', 'Organizaciones')}
-      </h2>
-      <div className="flex flex-wrap items-center justify-center gap-10 bg-white rounded-2xl shadow-sm border border-gray-100 px-8 py-10">
-        {organizations.map((org) => (
-          <div key={org.slug} className="flex flex-col items-center gap-3">
-            <OrgLogo slug={org.slug} name={org.name} />
-            <span className="text-rooted-black/70 text-sm text-center max-w-[14rem]">{org.name}</span>
-          </div>
-        ))}
-      </div>
-    </div>
+    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 bg-white rounded-2xl shadow-md border border-gray-100 p-6">
+      {children}
+    </ul>
   );
 }
 
@@ -102,9 +87,28 @@ export default function Endorsements() {
 
         <GroupPhoto />
 
-        <FlyerGallery />
+        <h2 className="font-playfair text-2xl sm:text-3xl font-bold text-rooted-black mb-4">
+          {t('Top Endorsers', 'Apoyos Destacados')}
+        </h2>
+        <CardGrid>
+          {topEndorsers.map((person) => (
+            <EndorserCard
+              key={person.name}
+              image={`/images/endorsers/${person.photo}.jpg`}
+              name={person.name}
+              detail={person.title}
+            />
+          ))}
+        </CardGrid>
 
-        <OrganizationLogos />
+        <h2 className="font-playfair text-2xl sm:text-3xl font-bold text-rooted-black mt-14 mb-4">
+          {t('Organizations', 'Organizaciones')}
+        </h2>
+        <CardGrid>
+          {organizations.map((org) => (
+            <EndorserCard key={org.name} image={`/images/orgs/${org.logo}.png`} name={org.name} />
+          ))}
+        </CardGrid>
 
         <h2 className="font-playfair text-2xl sm:text-3xl font-bold text-rooted-black mt-14 mb-4">
           {t('The Full List', 'La Lista Completa')}
@@ -151,6 +155,10 @@ export default function Endorsements() {
           >
             {t('Add your name here!', '¡Agregue su nombre aquí!')} &rarr;
           </a>
+        </div>
+
+        <div className="mt-16">
+          <FlyerGallery />
         </div>
 
         <div className="mt-10 text-center">
