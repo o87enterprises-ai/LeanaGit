@@ -49,6 +49,20 @@ const voterOutreach = {
     'Acompáñenos todos los sábados para conversar con los vecinos del Distrito 6 sobre nuestras escuelas. No necesita experiencia: lo emparejamos con alguien del equipo y le explicamos todo.',
 };
 
+const canvassing = {
+  title: 'Additional Volunteer Canvassing',
+  titleEs: 'Toque de Puertas Adicional con Voluntarios',
+  time: '4:30 – 6:30 PM',
+  timeEs: '4:30 – 6:30 p. m.',
+  description:
+    'Every Sunday and Thursday. Contact the campaign at LeAna@LeAnaForOaklandSchools.com to find the meeting location.',
+  descriptionEs:
+    'Todos los domingos y jueves. Comuníquese con la campaña en LeAna@LeAnaForOaklandSchools.com para conocer el lugar de reunión.',
+  rsvpUrl: 'mailto:leana@leanaforoaklandschools.com?subject=Volunteer%20canvassing%20location',
+  rsvpLabel: 'Email the campaign',
+  rsvpLabelEs: 'Escriba a la campaña',
+};
+
 export const events = [
   {
     date: '2026-08-29',
@@ -141,6 +155,24 @@ export const events = [
       'Una tarde con vecinos del Distrito 6 y amistades de la campaña. Confirme su asistencia para recibir la dirección.',
     rsvpUrl: 'https://secure.actblue.com/donate/leana-moores',
   },
+
+  {
+    date: '2026-10-06',
+    title: 'Zoom Meeting: Learn More About LeAna’s Campaign!',
+    titleEs: 'Reunión por Zoom: ¡Conozca más sobre la campaña de LeAna!',
+    time: '5:30 – 7:00 PM',
+    timeEs: '5:30 – 7:00 p. m.',
+    description: 'Join us online to learn more about LeAna’s campaign. Register to join.',
+    descriptionEs:
+      'Acompáñenos en línea para conocer más sobre la campaña de LeAna. Regístrese para participar.',
+    rsvpUrl: 'https://us06web.zoom.us/meeting/register/xi21UseMTo2l9dh8mW6YNA',
+    rsvpLabel: 'Register',
+    rsvpLabelEs: 'Regístrese',
+  },
+
+  // Every Sunday from Oct 4 and every Thursday from Oct 8, through Election Day.
+  ...weekly({ from: '2026-10-04', to: '2026-11-03', ...canvassing }),
+  ...weekly({ from: '2026-10-08', to: '2026-11-03', ...canvassing }),
 ];
 
 /** Resolve an event's text for the active language, falling back to English. */
@@ -235,6 +267,11 @@ export function weekdayNames(language) {
     const name = formatter.format(new Date(2026, 7, 2 + i)).replace('.', '');
     return name.charAt(0).toUpperCase() + name.slice(1);
   });
+}
+
+/** Props for an RSVP link: web links open in a new tab, mailto: links don't. */
+export function rsvpLinkProps(url) {
+  return url.startsWith('mailto:') ? {} : { target: '_blank', rel: 'noopener noreferrer' };
 }
 
 export function mapUrl(event) {
