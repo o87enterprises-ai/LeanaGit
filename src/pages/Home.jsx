@@ -200,6 +200,16 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 5. Text / email sign-up */}
+      <section className="pb-20 px-6 text-center">
+        <Link
+          to="/text-updates"
+          className="inline-block bg-deep-navy text-white px-8 py-4 rounded-full font-bold hover:bg-oakland-terracotta transition-colors"
+        >
+          {t('Get campaign updates by text or email', 'Reciba noticias de la campaña por texto o correo')} &rarr;
+        </Link>
+      </section>
+
     </div>
   );
 }
