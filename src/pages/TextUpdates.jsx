@@ -110,6 +110,13 @@ export default function TextUpdates() {
               <Link to="/privacy" className="underline text-oakland-terracotta">{t('Privacy Policy', 'Política de Privacidad')}</Link>.
             </p>
 
+            <p className="text-xs text-rooted-black/70 leading-relaxed">
+              {t(
+                'Your information will not be shared with third parties for marketing purposes.',
+                'Su información no se compartirá con terceros con fines de mercadeo.'
+              )}
+            </p>
+
             {status === 'error' && <p role="alert" className="text-red-700 text-sm font-semibold">{message}</p>}
 
             <button
