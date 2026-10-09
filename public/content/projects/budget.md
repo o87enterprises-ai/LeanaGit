@@ -1,5 +1,5 @@
 ---
-title: "Fiscal Responsibility & Student Outcomes"
+title: "Balancing the budget & ending the cycle of financial instability"
 date: 2026-06-16
 tags:
   - priorities

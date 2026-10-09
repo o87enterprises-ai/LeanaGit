@@ -49,6 +49,20 @@ const voterOutreach = {
     'Acompáñenos todos los sábados para conversar con los vecinos del Distrito 6 sobre nuestras escuelas. No necesita experiencia: lo emparejamos con alguien del equipo y le explicamos todo.',
 };
 
+const canvassing = {
+  title: 'Additional Volunteer Canvassing',
+  titleEs: 'Toque de Puertas Adicional con Voluntarios',
+  time: '4:30 – 6:30 PM',
+  timeEs: '4:30 – 6:30 p. m.',
+  description:
+    'Every Sunday and Thursday. Contact the campaign at LeAna@LeAnaForOaklandSchools.com to find the meeting location.',
+  descriptionEs:
+    'Todos los domingos y jueves. Comuníquese con la campaña en LeAna@LeAnaForOaklandSchools.com para conocer el lugar de reunión.',
+  rsvpUrl: 'mailto:leana@leanaforoaklandschools.com?subject=Volunteer%20canvassing%20location',
+  rsvpLabel: 'Email the campaign',
+  rsvpLabelEs: 'Escriba a la campaña',
+};
+
 export const events = [
   {
     date: '2026-08-29',
@@ -79,6 +93,20 @@ export const events = [
     descriptionEs:
       'Una tarde con familias de Burckhalter y amistades de la campaña. Confirme su asistencia para recibir la dirección.',
     rsvpUrl: 'https://secure.actblue.com/donate/leana-katie',
+  },
+  {
+    date: '2026-09-22',
+    title: 'District 6 Candidate Forum',
+    titleEs: 'Foro de Candidatos del Distrito 6',
+    time: '6:00 – 8:00 PM',
+    timeEs: '6:00 – 8:00 p. m.',
+    location: 'Skyline High School',
+    locationEs: 'Escuela Secundaria Skyline',
+    address: '12250 Skyline Blvd, Oakland, CA',
+    description:
+      'Meet the candidates running for the District 6 school board seat and ask your questions before you vote.',
+    descriptionEs:
+      'Conozca a los candidatos al puesto del Distrito 6 en la junta escolar y haga sus preguntas antes de votar.',
   },
   {
     date: '2026-09-24',
@@ -112,6 +140,39 @@ export const events = [
     descriptionEs:
       'Nuestra última caminata del sábado antes de las elecciones, con disfraz si gusta: los disfraces son opcionales y los dulces bienvenidos.',
   },
+
+  {
+    date: '2026-10-18',
+    title: 'House Party',
+    titleEs: 'Fiesta en Casa',
+    host: 'Hosted by Alice & Jamie Moore',
+    hostEs: 'Organizada por Alice y Jamie Moore',
+    time: '3:00 – 5:00 PM',
+    timeEs: '3:00 – 5:00 p. m.',
+    description:
+      'An afternoon with District 6 neighbors and friends of the campaign. RSVP for the address.',
+    descriptionEs:
+      'Una tarde con vecinos del Distrito 6 y amistades de la campaña. Confirme su asistencia para recibir la dirección.',
+    rsvpUrl: 'https://secure.actblue.com/donate/leana-moores',
+  },
+
+  {
+    date: '2026-10-06',
+    title: 'Zoom Meeting: Learn More About LeAna’s Campaign!',
+    titleEs: 'Reunión por Zoom: ¡Conozca más sobre la campaña de LeAna!',
+    time: '5:30 – 7:00 PM',
+    timeEs: '5:30 – 7:00 p. m.',
+    description: 'Join us online to learn more about LeAna’s campaign. Register to join.',
+    descriptionEs:
+      'Acompáñenos en línea para conocer más sobre la campaña de LeAna. Regístrese para participar.',
+    rsvpUrl: 'https://us06web.zoom.us/meeting/register/xi21UseMTo2l9dh8mW6YNA',
+    rsvpLabel: 'Register',
+    rsvpLabelEs: 'Regístrese',
+  },
+
+  // Every Sunday from Oct 4 and every Thursday from Oct 8, through Election Day.
+  ...weekly({ from: '2026-10-04', to: '2026-11-03', ...canvassing }),
+  ...weekly({ from: '2026-10-08', to: '2026-11-03', ...canvassing }),
 ];
 
 /** Resolve an event's text for the active language, falling back to English. */
@@ -206,6 +267,11 @@ export function weekdayNames(language) {
     const name = formatter.format(new Date(2026, 7, 2 + i)).replace('.', '');
     return name.charAt(0).toUpperCase() + name.slice(1);
   });
+}
+
+/** Props for an RSVP link: web links open in a new tab, mailto: links don't. */
+export function rsvpLinkProps(url) {
+  return url.startsWith('mailto:') ? {} : { target: '_blank', rel: 'noopener noreferrer' };
 }
 
 export function mapUrl(event) {

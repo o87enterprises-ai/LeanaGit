@@ -1,5 +1,5 @@
 ---
-title: "Responsabilidad fiscal y resultados estudiantiles"
+title: "Equilibrar el presupuesto y poner fin al ciclo de inestabilidad financiera"
 date: 2026-06-16
 tags:
   - priorities
