@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Header from '../components/ui/Header';
 import Footer from '../components/ui/Footer';
+import { seoFor, SITE_URL } from '../seo';
 
 /** Scroll to the #hash target on navigation (the About tab points at /#about),
  *  or back to the top when there is no hash. */
@@ -23,7 +24,38 @@ function ScrollToHash() {
   return null;
 }
 
+/** Keep the tab title, description and canonical right as visitors navigate. */
+function useSeo() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    const { title, description } = seoFor(pathname);
+    document.title = title;
+    const set = (selector, attr, value, make) => {
+      let el = document.head.querySelector(selector);
+      if (!el) {
+        el = make();
+        document.head.appendChild(el);
+      }
+      el.setAttribute(attr, value);
+    };
+    const meta = (key, name) => () => {
+      const m = document.createElement('meta');
+      m.setAttribute(key, name);
+      return m;
+    };
+    set('meta[name="description"]', 'content', description, meta('name', 'description'));
+    set('meta[property="og:title"]', 'content', title, meta('property', 'og:title'));
+    set('meta[property="og:description"]', 'content', description, meta('property', 'og:description'));
+    set('link[rel="canonical"]', 'href', SITE_URL + (pathname.length > 1 ? pathname.replace(/\/$/, '') : pathname), () => {
+      const l = document.createElement('link');
+      l.setAttribute('rel', 'canonical');
+      return l;
+    });
+  }, [pathname]);
+}
+
 export default function Layout({ children }) {
+  useSeo();
   const [position, setPosition] = useState({ x: -100, y: -100 });
 
   useEffect(() => {
