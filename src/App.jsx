@@ -11,6 +11,8 @@ import BearNecessities from './pages/BearNecessities';
 import TheDenLive from './pages/TheDenLive';
 import ArticlesAchievements from './pages/ArticlesAchievements';
 import Events from './pages/Events';
+import TextUpdates from './pages/TextUpdates';
+import { Terms, Privacy } from './pages/Legal';
 
 function AppContent() {
   return (
@@ -29,6 +31,9 @@ function AppContent() {
       <Route path="/cub-house" element={<Navigate to="/" replace />} />
       <Route path="/achievements" element={<Layout><ArticlesAchievements /></Layout>} />
       <Route path="/events" element={<Layout><Events /></Layout>} />
+      <Route path="/text-updates" element={<Layout><TextUpdates /></Layout>} />
+      <Route path="/terms" element={<Layout><Terms /></Layout>} />
+      <Route path="/privacy" element={<Layout><Privacy /></Layout>} />
       <Route path="/:slug" element={<Layout><Page /></Layout>} />
     </Routes>
   );

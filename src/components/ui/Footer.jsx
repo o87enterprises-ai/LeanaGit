@@ -96,6 +96,12 @@ export default function Footer() {
             <Link to="/privacy" className="hover:text-white transition-colors">
               {t('Privacy', 'Privacidad')}
             </Link>
+            <Link to="/terms" className="hover:text-white transition-colors">
+              {t('Terms', 'Términos')}
+            </Link>
+            <Link to="/text-updates" className="hover:text-white transition-colors">
+              {t('Text updates', 'Mensajes de texto')}
+            </Link>
           </div>
           <p className="text-xs text-white/40 mt-4">© {new Date().getFullYear()} LeAna for Oakland Schools</p>
 

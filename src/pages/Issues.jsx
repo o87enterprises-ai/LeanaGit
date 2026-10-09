@@ -6,10 +6,8 @@ import { useDocs } from '../lib/content';
 // The priorities live as markdown in public/content/projects/ (each one also has
 // an .es.md translation), so the campaign can edit them without touching code.
 const ISSUE_PATHS = [
-  '/content/projects/safer-schools',
-  '/content/projects/students-with-disabilities',
+  '/content/projects/reading-and-math',
   '/content/projects/budget',
-  '/content/projects/superintendent',
   '/content/projects/engagement',
 ];
 
@@ -30,8 +28,8 @@ export default function Issues() {
           </h1>
           <p className="text-lg sm:text-xl text-rooted-black/70">
             {t(
-              'Five priorities for District 6 — safe schools, real support for students with disabilities, an honest budget, stable leadership, and families at the table.',
-              'Cinco prioridades para el Distrito 6: escuelas seguras, apoyo real para estudiantes con discapacidades, un presupuesto honesto, liderazgo estable y familias en la mesa.'
+              'Three priorities for District 6 — stronger reading and math, a balanced budget, and families at the table.',
+              'Tres prioridades para el Distrito 6: mejor lectura y matemáticas, un presupuesto equilibrado y familias en la mesa.'
             )}
           </p>
         </div>

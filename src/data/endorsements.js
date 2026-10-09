@@ -1,3 +1,30 @@
+// Top endorsers, shown as photo cards at the top of the Endorsements page.
+// Each photo is a square image at public/images/endorsers/<photo>.jpg.
+// To swap a photo, upload a new file with the same name; to add someone,
+// upload their photo and add a line here.
+export const topEndorsers = [
+  { name: 'Nate Miley', title: 'Alameda County Supervisor', photo: 'nate-miley' },
+  { name: 'Dr. César Cruz', title: 'Homies Empowerment*', photo: 'cesar-cruz' },
+  {
+    name: 'Shanthi Gonzales',
+    title: 'Former District 6 Oakland School Board Member and President',
+    photo: 'shanthi-gonzales',
+  },
+  { name: 'Loren Taylor', title: 'Previous District 6 Oakland City Councilmember', photo: 'loren-taylor' },
+  { name: 'Patrice Berry', title: 'Oakland School Board, District 5', photo: 'patrice-berry' },
+  { name: 'Mike Hutchinson', title: 'Oakland School Board, District 4', photo: 'mike-hutchinson' },
+];
+
+// Endorsing organizations, shown as logo cards under the top endorsers.
+// Each logo is a square image at public/images/orgs/<logo>.png.
+export const organizations = [
+  { name: 'Planned Parenthood Advocates Mar Monte', logo: 'ppa-mar-monte' },
+  { name: 'Parents for a Safer Skyline HS (PASS)', logo: 'pass' },
+  { name: 'Alameda County Jewish Democratic Club', logo: 'acjdc' },
+  { name: 'Empower Oakland', logo: 'empower-oakland' },
+  { name: 'East Bay Young Democrats', logo: 'ebyd' },
+];
+
 // Endorsers, in the order supplied by the campaign.
 // An asterisk in a title means the organization is listed for identification
 // purposes only — that note is rendered once at the bottom of the page.

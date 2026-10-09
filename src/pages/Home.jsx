@@ -3,12 +3,10 @@ import HeroVideo from '../components/ui/HeroVideo';
 import Markdown from '../components/ui/Markdown';
 import { useLanguage } from '../context/LanguageContext';
 import { useDocs } from '../lib/content';
-import { upcomingEvents, formatEventDate, localizeEvent, mapUrl } from '../data/events';
+import { upcomingEvents, formatEventDate, localizeEvent, mapUrl, rsvpLinkProps } from '../data/events';
 
 const exploreCards = [
   { to: '/endorsements', emoji: '🤝', titleEn: 'Endorsements', titleEs: 'Apoyos', noteEn: '35+ community leaders', noteEs: 'Más de 35 líderes comunitarios' },
-  { to: '/bear-necessities', emoji: '🐻', titleEn: 'Bear Necessities', titleEs: 'Necesidades del Oso', noteEn: 'Coming Soon', noteEs: 'Próximamente' },
-  { to: '/the-den-live', emoji: '🎙️', titleEn: 'The Den Live!', titleEs: '¡La Guarida en Vivo!', noteEn: 'Coming Soon', noteEs: 'Próximamente' },
   { to: '/events', emoji: '📅', titleEn: 'Events', titleEs: 'Eventos', noteEn: 'Come meet LeAna', noteEs: 'Venga a conocer a LeAna' },
 ];
 
@@ -106,8 +104,7 @@ export default function Home() {
                       {event.rsvpUrl ? (
                         <a
                           href={event.rsvpUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          {...rsvpLinkProps(event.rsvpUrl)}
                           className="inline-block bg-oakland-terracotta text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-california-gold transition-colors"
                         >
                           {event.rsvpLabel || t('RSVP', 'Confirmar asistencia')} &rarr;
@@ -188,7 +185,7 @@ export default function Home() {
         <h2 className="font-playfair text-3xl sm:text-5xl font-bold text-rooted-black mb-12 text-center">
           {t('Explore Our Community', 'Explore Nuestra Comunidad')}
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {exploreCards.map((card) => (
             <Link
               key={card.to}
@@ -201,6 +198,16 @@ export default function Home() {
             </Link>
           ))}
         </div>
+      </section>
+
+      {/* 5. Text / email sign-up */}
+      <section className="pb-20 px-6 text-center">
+        <Link
+          to="/text-updates"
+          className="inline-block bg-deep-navy text-white px-8 py-4 rounded-full font-bold hover:bg-oakland-terracotta transition-colors"
+        >
+          {t('Get campaign updates by text or email', 'Reciba noticias de la campaña por texto o correo')} &rarr;
+        </Link>
       </section>
 
     </div>

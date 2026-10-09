@@ -15,6 +15,7 @@ import {
   parseDateStr,
   toDateStr,
   mapUrl,
+  rsvpLinkProps,
 } from '../data/events';
 
 function EventDetails({ event, compact = false }) {
@@ -46,8 +47,7 @@ function EventDetails({ event, compact = false }) {
       {e.rsvpUrl ? (
         <a
           href={e.rsvpUrl}
-          target="_blank"
-          rel="noopener noreferrer"
+          {...rsvpLinkProps(e.rsvpUrl)}
           className="inline-block mt-4 bg-oakland-terracotta text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-sierra-sage transition-colors"
         >
           {e.rsvpLabel || t('RSVP', 'Confirmar asistencia')} &rarr;
