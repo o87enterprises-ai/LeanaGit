@@ -36,7 +36,7 @@ export default function Footer() {
             <NavLink
               key={link.to || link.href}
               link={link}
-              className="text-sm hover:text-white transition-colors"
+              className="text-base hover:text-white transition-colors"
             >
               {t(link.nameEn, link.nameEs)}
             </NavLink>
@@ -87,7 +87,7 @@ export default function Footer() {
             </p>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-4 text-xs mt-2">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-base mt-2">
             {/* leana@ is the address that actually forwards; info@ has no
                 routing rule and mail to it is dropped. */}
             <a href="mailto:leana@leanaforoaklandschools.com" className="hover:text-white transition-colors">
@@ -98,9 +98,6 @@ export default function Footer() {
             </Link>
             <Link to="/terms" className="hover:text-white transition-colors">
               {t('Terms', 'Términos')}
-            </Link>
-            <Link to="/text-updates" className="hover:text-white transition-colors">
-              {t('Text updates', 'Mensajes de texto')}
             </Link>
           </div>
           <p className="text-xs text-white/40 mt-4">© {new Date().getFullYear()} LeAna for Oakland Schools</p>
