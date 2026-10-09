@@ -1,0 +1,30 @@
+# LeAna Powell for Oakland School Board, District 6
+
+> Official campaign website of LeAna Powell, an Oakland native, mother of three, and parent advocate running for Oakland School Board, District 6 (Oakland Unified School District, California). The site is available in English and Spanish (add ?lang=es). Campaign slogan: "Rooted in Oakland. Fighting for kids." Hashtag: #MamaBearForOUSD.
+
+## Key facts
+- Candidate: LeAna Powell. Her family has been in Oakland public schools for five generations; she has two children in OUSD and one who graduated.
+- Role: active in the Burckhalter Elementary PTO; experience in budget and policy advocacy at the California State Capitol and with education nonprofits.
+- Office sought: Oakland School Board, District 6.
+- Contact: leana@leanaforoaklandschools.com
+
+## Pages
+- [Home and About](https://leanaforoaklandschools.com/): who LeAna is and why she is running
+- [Priorities](https://leanaforoaklandschools.com/issues): budget stability, reading and math, family and community engagement
+- [Endorsements](https://leanaforoaklandschools.com/endorsements): elected officials, educators, parents and community leaders
+- [Events](https://leanaforoaklandschools.com/events): upcoming and past campaign events
+- [Volunteer](https://leanaforoaklandschools.com/volunteer): ways to help
+- [Articles & Achievements](https://leanaforoaklandschools.com/achievements): press, letters of support, resources
+- [Get Updates](https://leanaforoaklandschools.com/text-updates): email and text sign-up
+
+## Page content as Markdown
+- [About LeAna](https://leanaforoaklandschools.com/content/about.md)
+- [Balancing the budget](https://leanaforoaklandschools.com/content/projects/budget.md)
+- [Reading and math](https://leanaforoaklandschools.com/content/projects/reading-and-math.md)
+- [Family and community engagement](https://leanaforoaklandschools.com/content/projects/engagement.md)
+- Spanish versions: same paths with `.es.md`
+
+## Optional
+- [Sitemap](https://leanaforoaklandschools.com/sitemap.xml)
+- [Privacy](https://leanaforoaklandschools.com/privacy)
+- [Terms](https://leanaforoaklandschools.com/terms)
