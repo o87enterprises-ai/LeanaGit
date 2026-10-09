@@ -23,6 +23,12 @@ export const navLinks = [
   { nameEn: 'Events', nameEs: 'Eventos', to: '/events', primary: true },
   { nameEn: 'Volunteer', nameEs: '¡Apúnteme!', to: '/volunteer', primary: true },
   {
+    nameEn: 'Updates',
+    nameEs: 'Noticias',
+    to: '/text-updates',
+    primary: true,
+  },
+  {
     nameEn: 'Articles & Achievements',
     nameEs: 'Artículos y Logros',
     shortEn: 'Articles',
