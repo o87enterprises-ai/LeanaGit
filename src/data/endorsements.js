@@ -73,4 +73,8 @@ export const endorsements = [
   { name: 'Pawan Grewal', title: 'Teacher & District 6 voter' },
   { name: 'Semuteh Freeman', title: 'Attorney, OUSD Parent & District 6 voter' },
   { name: 'Alice & Jamie Moore', title: 'OUSD volunteers & District 6 voters' },
+  { name: 'Georgia Savage', title: 'President, East Bay Young Democrats' },
+  { name: 'Dr. Shalonda Gregory', title: 'Principal, MetWest HS*' },
+  { name: 'Vernetta Woods', title: 'Lifelong East Oaklander and activist' },
+  { name: 'Judge Brenda Harbin-Forte', title: 'Retired Alameda County Superior Court' },
 ];
