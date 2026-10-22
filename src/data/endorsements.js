@@ -3,16 +3,21 @@
 // To swap a photo, upload a new file with the same name; to add someone,
 // upload their photo and add a line here.
 export const topEndorsers = [
+  // Row 1
+  { name: 'Buffy Wicks', title: 'California Assemblymember, North Oakland', photo: 'buffy-wicks' },
   { name: 'Nate Miley', title: 'Alameda County Supervisor', photo: 'nate-miley' },
-  { name: 'Dr. César Cruz', title: 'Homies Empowerment*', photo: 'cesar-cruz' },
   {
     name: 'Shanthi Gonzales',
     title: 'Former District 6 Oakland School Board Member and President',
     photo: 'shanthi-gonzales',
   },
-  { name: 'Loren Taylor', title: 'Previous District 6 Oakland City Councilmember', photo: 'loren-taylor' },
-  { name: 'Patrice Berry', title: 'Oakland School Board, District 5', photo: 'patrice-berry' },
+  // Row 2
   { name: 'Mike Hutchinson', title: 'Oakland School Board, District 4', photo: 'mike-hutchinson' },
+  { name: 'Patrice Berry', title: 'Oakland School Board, District 5', photo: 'patrice-berry' },
+  { name: 'Dr. Clifford Thompson', title: 'Oakland School Board, District 7', photo: 'clifford-thompson' },
+  // Row 3
+  { name: 'Dr. César Cruz', title: 'Homies Empowerment*', photo: 'cesar-cruz' },
+  { name: 'Loren Taylor', title: 'Previous District 6 Oakland City Councilmember', photo: 'loren-taylor' },
 ];
 
 // Endorsing organizations, shown as logo cards under the top endorsers.
@@ -23,16 +28,19 @@ export const organizations = [
   { name: 'Alameda County Jewish Democratic Club', logo: 'acjdc' },
   { name: 'Empower Oakland', logo: 'empower-oakland' },
   { name: 'East Bay Young Democrats', logo: 'ebyd' },
+  { name: 'Moms Demand Action: Gun Sense Candidate 2026', logo: 'moms-demand-action' },
 ];
 
 // Endorsers, in the order supplied by the campaign.
 // An asterisk in a title means the organization is listed for identification
 // purposes only — that note is rendered once at the bottom of the page.
 export const endorsements = [
+  { name: 'Buffy Wicks', title: 'California Assemblymember (North Oakland)' },
   { name: 'Nate Miley', title: 'Alameda County Supervisor' },
   { name: 'Dr. César Cruz', title: 'Founder, Homies Empowerment*' },
   { name: 'Patrice Berry', title: 'Oakland School Board Director (District 5)' },
   { name: 'Mike Hutchinson', title: 'Oakland School Board Director (District 4)' },
+  { name: 'Dr. Clifford Thompson', title: 'Oakland School Board Director (District 7)' },
   { name: 'Loren Taylor', title: 'Former Oakland City Councilmember (District 6)' },
   { name: 'Shanthi Gonzales', title: 'Former Oakland School Board Director (District 6)' },
   { name: 'Sam Davis', title: 'Former Oakland School Board Director and President (District 1)' },
